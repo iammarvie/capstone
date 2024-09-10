@@ -32,4 +32,57 @@ class PublisherNodeClass(Node):
 		#the queue size for messages
 		self.queueSize=20
 		
-		#self create publisher  creates the publisher that 
+		#self create publisher  creates the publisher that publishes the messages of the type Image, over the topic self.topicNameFrames and with the queue size self.queueSize
+		self.publisher = self.create_publisher(Image, self.topicNameFrames, self.queueSize)
+
+		#communication period
+		self.periodCommunication = 0.02
+
+		#create the timer that calls the function self.timer_callback at the period self.periodCommunication
+		self.timer = self.create_timer(self.periodCommunication, self.timer_callbackFunction)
+
+		# this is the counter that is used to count the number of messages sent
+		self.i = 0
+
+		# this is the callback function that is called every self.periodCommunication seconds
+	def timer_callbackFunction(self):
+
+		# read the image from the camera
+		success, frame = self.camera.read()
+		# resize the image
+		frame = cv2.resize(frame, (820, 640), interpolation=cv2.INTER_CUBIC)
+
+		# IF the image is read successfully
+		if success:
+			# convert the image to a ros2 message
+			imageMessage = self.bridgeObject.cv2_to_imgmsg(frame)
+
+			# publish the message
+			self.publisher.publish(imageMessage)
+
+		# print the number of messages sent
+		self.get_logger().info('Image number %d sent' % self.i)
+		self.i += 1
+
+# the main function
+
+def main(args=None):
+	#initialize the ROS2 system
+	rclpy.init(args=args)
+
+	#create an instance of the class PublisherNodeClass
+	publisher_node = PublisherNodeClass()
+
+	#keep the node running
+	rclpy.spin(publisher_node)
+
+	#destroy the node
+	publisher_node.destroy_node()
+	
+	#shutdown the ROS2 system
+	rclpy.shutdown()
+
+# call the main function
+
+if __name__ == '__main__':
+	main()
