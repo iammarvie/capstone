@@ -1,0 +1,15 @@
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/ament_index/resource_index/package_run_dependencies/camera_talk
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/ament_index/resource_index/parent_prefix_path/camera_talk
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/environment/ament_prefix_path.sh
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/environment/ament_prefix_path.dsv
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/environment/path.sh
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/environment/path.dsv
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/local_setup.bash
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/local_setup.sh
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/local_setup.zsh
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/local_setup.dsv
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/package.dsv
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/ament_index/resource_index/packages/camera_talk
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/cmake/camera_talkConfig.cmake
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/cmake/camera_talkConfig-version.cmake
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/camera_talk/share/camera_talk/package.xml
