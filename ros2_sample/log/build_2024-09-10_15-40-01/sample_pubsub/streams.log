@@ -1,0 +1,20 @@
+[3.241s] Invoking command in '/home/epue/capstone.git/capstone/ros2_sample': PYTHONPATH=/home/epue/capstone.git/capstone/ros2_sample/build/sample_pubsub/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ros2_sample/install/sample_pubsub/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/sample_pubsub build --build-base /home/epue/capstone.git/capstone/ros2_sample/build/sample_pubsub/build install --record /home/epue/capstone.git/capstone/ros2_sample/build/sample_pubsub/install.log --single-version-externally-managed install_data
+[4.572s] running egg_info
+[4.577s] creating build/sample_pubsub/sample_pubsub.egg-info
+[4.580s] writing build/sample_pubsub/sample_pubsub.egg-info/PKG-INFO
+[4.581s] writing dependency_links to build/sample_pubsub/sample_pubsub.egg-info/dependency_links.txt
+[4.582s] writing entry points to build/sample_pubsub/sample_pubsub.egg-info/entry_points.txt
+[4.584s] writing requirements to build/sample_pubsub/sample_pubsub.egg-info/requires.txt
+[4.584s] writing top-level names to build/sample_pubsub/sample_pubsub.egg-info/top_level.txt
+[4.586s] writing manifest file 'build/sample_pubsub/sample_pubsub.egg-info/SOURCES.txt'
+[4.589s] reading manifest file 'build/sample_pubsub/sample_pubsub.egg-info/SOURCES.txt'
+[4.592s] writing manifest file 'build/sample_pubsub/sample_pubsub.egg-info/SOURCES.txt'
+[4.593s] running build
+[4.593s] running install
+[4.594s] running install_data
+[4.595s] creating /home/epue/capstone.git/capstone/ros2_sample/install/sample_pubsub/share
+[4.595s] creating /home/epue/capstone.git/capstone/ros2_sample/install/sample_pubsub/share/ament_index
+[4.596s] creating /home/epue/capstone.git/capstone/ros2_sample/install/sample_pubsub/share/ament_index/resource_index
+[4.597s] creating /home/epue/capstone.git/capstone/ros2_sample/install/sample_pubsub/share/ament_index/resource_index/packages
+[4.599s] error: can't copy 'resource/sample_pubsub': doesn't exist or not a regular file
+[4.709s] Invoked command in '/home/epue/capstone.git/capstone/ros2_sample' returned '1': PYTHONPATH=/home/epue/capstone.git/capstone/ros2_sample/build/sample_pubsub/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ros2_sample/install/sample_pubsub/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/sample_pubsub build --build-base /home/epue/capstone.git/capstone/ros2_sample/build/sample_pubsub/build install --record /home/epue/capstone.git/capstone/ros2_sample/build/sample_pubsub/install.log --single-version-externally-managed install_data

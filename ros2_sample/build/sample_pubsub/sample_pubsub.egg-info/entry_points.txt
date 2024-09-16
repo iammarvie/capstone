@@ -1,0 +1,6 @@
+[console_scripts]
+listen3 = sample_pubsub.listen3:main
+pub_imu = sample_pubsub.pub_imu:main
+pub_keyboard = sample_pubsub.pub_keyboard:main
+pub_mmc5603 = sample_pubsub.pub_mmc5603:main
+
