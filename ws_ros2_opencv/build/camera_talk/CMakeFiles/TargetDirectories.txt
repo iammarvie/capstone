@@ -1,9 +1,0 @@
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/uninstall.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/camera_talk_uninstall.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/test.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/edit_cache.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/rebuild_cache.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/list_install_components.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/install.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/install/local.dir
-/home/epue/capstone.git/capstone/ws_ros2_opencv/build/camera_talk/CMakeFiles/install/strip.dir

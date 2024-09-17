@@ -1,4 +1,6 @@
 [console_scripts]
+image_display_node = ros2_opencv.detection_display:main
+object_detection_node = ros2_opencv.object_detection:main
 publisher_node = ros2_opencv.cameraPublisher:main
 subscriber_node = ros2_opencv.subscriberimage:main
 

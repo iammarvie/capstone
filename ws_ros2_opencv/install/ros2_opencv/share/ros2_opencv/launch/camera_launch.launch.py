@@ -5,12 +5,14 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='ros2_opencv',
-            executable='publisher_node',
-            name='camera_publisher'
+            executable='object_detection_node',
+            name='object_detection_node',
+            output='screen'
         ),
         Node(
             package='ros2_opencv',
-            executable='subscriber_node',
-            name='camera_subscriber'
+            executable='image_display_node',
+            name='image_display_node',
+            output='screen'
         ),
     ])
