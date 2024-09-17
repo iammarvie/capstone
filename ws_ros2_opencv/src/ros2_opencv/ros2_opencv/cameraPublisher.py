@@ -27,7 +27,7 @@ class PublisherNodeClass(Node):
 		self.bridgeObject = CvBridge()
 
 		# name of topic used to transfer camera images
-		self.topicNameFrames = 'topic_camera_image'
+		self.topicNameFrames = 'image_raw'#'topic_camera_image'
 
 		#the queue size for messages
 		self.queueSize=20

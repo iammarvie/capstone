@@ -20,7 +20,7 @@ class ImageDisplayNode(Node):
         
         self.get_logger().info('Received an image on detection_image')
         # Convert ROS Image message to OpenCV image
-        cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
+        cv_image = self.bridgeObject.imgmsg_to_cv2(msg, 'bgr8')
         
         # Display the image
         cv2.imshow('Detected Image', cv_image)

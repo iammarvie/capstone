@@ -26,23 +26,20 @@ class ObjectDetectionNode(Node):
 
     def __init__(self):
         super().__init__('object_detection_node')
-        self.subscription = self.create_subscription(Image, 'image_raw', self.listener_callback, 10)
-        self.publisher_ = self.create_publisher(Image, 'detection_image', 10)
+        self.subscription = self.create_subscription(Image, 'image_raw', self.listener_callback, 20)
+        self.publisher_ = self.create_publisher(Image, 'detection_image', 20)
         self.bridge = CvBridge()
         self.i = 0  # Initialize the image counter
 
         # Load the Faster R-CNN model with pre-trained weights
         self.model = torchvision.models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
         self.model.eval()
+        self.get_logger().info('Object detection model loaded successfully')
 
     def listener_callback(self, msg):
-        try:
-            self.get_logger().info('Received an image on image_raw')
-            # Convert ROS Image message to OpenCV image
-            cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
-        except CvBridgeError as e:
-            self.get_logger().error('Failed to convert image: %s' % str(e))
-            return
+        self.get_logger().info('Received an image on image_raw')
+        # Convert ROS Image message to OpenCV image
+        cv_image = self.bridgeObject.imgmsg_to_cv2(msg, 'bgr8')
 
         # Preprocess the image and perform object detection
         transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
@@ -63,7 +60,7 @@ class ObjectDetectionNode(Node):
         
         # Convert OpenCV image to ROS Image message and publish
         try:
-            detection_image = self.bridge.cv2_to_imgmsg(cv_image, 'bgr8')
+            detection_image = self.bridgeObject.cv2_to_imgmsg(cv_image, 'bgr8')
             self.publisher.publish(detection_image)
             # Log the number of messages sent
             self.get_logger().info('Publishing processed image on detection_image')
