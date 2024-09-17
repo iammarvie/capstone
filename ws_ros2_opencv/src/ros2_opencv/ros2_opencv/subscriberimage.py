@@ -36,7 +36,7 @@ class SubscriberNodeClass(Node):
 
         self.get_logger().info('The image has been received')
         # convert the ros2 message to an image
-        frame = self.bridgeObject.imgmsg_to_cv2(msg)
+        frame = self.bridgeObject.imgmsg_to_cv2(msg, 'bgr8')
 
         # show the image
         cv2.imshow('Camera Video', frame)

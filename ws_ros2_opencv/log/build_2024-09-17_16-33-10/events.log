@@ -1,0 +1,193 @@
+[0.000000] (-) TimerEvent: {}
+[0.002321] (ros2_opencv) JobQueued: {'identifier': 'ros2_opencv', 'dependencies': OrderedDict()}
+[0.003453] (ros2_opencv) JobStarted: {'identifier': 'ros2_opencv'}
+[0.074733] (-) TimerEvent: {}
+[0.183782] (-) TimerEvent: {}
+[0.287878] (-) TimerEvent: {}
+[0.390869] (-) TimerEvent: {}
+[0.493667] (-) TimerEvent: {}
+[0.595897] (-) TimerEvent: {}
+[0.698337] (-) TimerEvent: {}
+[0.800232] (-) TimerEvent: {}
+[0.902479] (-) TimerEvent: {}
+[1.004844] (-) TimerEvent: {}
+[1.107229] (-) TimerEvent: {}
+[1.210834] (-) TimerEvent: {}
+[1.314403] (-) TimerEvent: {}
+[1.417468] (-) TimerEvent: {}
+[1.520538] (-) TimerEvent: {}
+[1.623277] (-) TimerEvent: {}
+[1.726576] (-) TimerEvent: {}
+[1.830196] (-) TimerEvent: {}
+[1.933663] (-) TimerEvent: {}
+[2.047196] (-) TimerEvent: {}
+[2.149499] (-) TimerEvent: {}
+[2.250840] (-) TimerEvent: {}
+[2.352419] (-) TimerEvent: {}
+[2.453758] (-) TimerEvent: {}
+[2.555994] (-) TimerEvent: {}
+[2.657722] (-) TimerEvent: {}
+[2.759561] (-) TimerEvent: {}
+[2.861508] (-) TimerEvent: {}
+[2.964183] (-) TimerEvent: {}
+[3.065452] (-) TimerEvent: {}
+[3.168671] (-) TimerEvent: {}
+[3.271490] (-) TimerEvent: {}
+[3.372567] (-) TimerEvent: {}
+[3.473679] (-) TimerEvent: {}
+[3.574887] (-) TimerEvent: {}
+[3.675978] (-) TimerEvent: {}
+[3.776991] (-) TimerEvent: {}
+[3.878105] (-) TimerEvent: {}
+[3.979581] (-) TimerEvent: {}
+[4.081255] (-) TimerEvent: {}
+[4.182842] (-) TimerEvent: {}
+[4.284537] (-) TimerEvent: {}
+[4.386038] (-) TimerEvent: {}
+[4.487623] (-) TimerEvent: {}
+[4.589979] (-) TimerEvent: {}
+[4.694759] (-) TimerEvent: {}
+[4.796437] (-) TimerEvent: {}
+[4.898189] (-) TimerEvent: {}
+[4.999680] (-) TimerEvent: {}
+[5.100721] (-) TimerEvent: {}
+[5.201853] (-) TimerEvent: {}
+[5.303501] (-) TimerEvent: {}
+[5.404993] (-) TimerEvent: {}
+[5.507175] (-) TimerEvent: {}
+[5.610108] (-) TimerEvent: {}
+[5.711995] (-) TimerEvent: {}
+[5.814490] (-) TimerEvent: {}
+[5.916158] (-) TimerEvent: {}
+[6.017523] (-) TimerEvent: {}
+[6.118876] (-) TimerEvent: {}
+[6.220068] (-) TimerEvent: {}
+[6.321264] (-) TimerEvent: {}
+[6.422543] (-) TimerEvent: {}
+[6.523742] (-) TimerEvent: {}
+[6.624958] (-) TimerEvent: {}
+[6.726155] (-) TimerEvent: {}
+[6.827472] (-) TimerEvent: {}
+[6.929086] (-) TimerEvent: {}
+[7.030918] (-) TimerEvent: {}
+[7.132081] (-) TimerEvent: {}
+[7.233211] (-) TimerEvent: {}
+[7.334361] (-) TimerEvent: {}
+[7.435610] (-) TimerEvent: {}
+[7.537001] (-) TimerEvent: {}
+[7.638192] (-) TimerEvent: {}
+[7.740743] (-) TimerEvent: {}
+[7.843816] (-) TimerEvent: {}
+[7.946212] (-) TimerEvent: {}
+[8.048530] (-) TimerEvent: {}
+[8.150525] (-) TimerEvent: {}
+[8.252602] (-) TimerEvent: {}
+[8.355760] (-) TimerEvent: {}
+[8.460298] (-) TimerEvent: {}
+[8.564881] (-) TimerEvent: {}
+[8.669032] (-) TimerEvent: {}
+[8.770157] (-) TimerEvent: {}
+[8.871380] (-) TimerEvent: {}
+[8.972651] (-) TimerEvent: {}
+[9.073834] (-) TimerEvent: {}
+[9.175115] (-) TimerEvent: {}
+[9.276377] (-) TimerEvent: {}
+[9.378351] (-) TimerEvent: {}
+[9.479361] (-) TimerEvent: {}
+[9.581422] (-) TimerEvent: {}
+[9.685643] (-) TimerEvent: {}
+[9.787319] (-) TimerEvent: {}
+[9.889742] (-) TimerEvent: {}
+[9.992028] (-) TimerEvent: {}
+[10.094028] (-) TimerEvent: {}
+[10.195772] (-) TimerEvent: {}
+[10.297638] (-) TimerEvent: {}
+[10.400022] (-) TimerEvent: {}
+[10.501821] (-) TimerEvent: {}
+[10.604149] (-) TimerEvent: {}
+[10.709351] (-) TimerEvent: {}
+[10.814257] (-) TimerEvent: {}
+[10.919427] (-) TimerEvent: {}
+[11.023729] (-) TimerEvent: {}
+[11.103578] (ros2_opencv) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/ros2_opencv', 'build', '--build-base', '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build', 'install', '--record', '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'epue', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/iron/opt/rviz_ogre_vendor/lib:/opt/ros/iron/lib/aarch64-linux-gnu:/opt/ros/iron/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/epue', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '2290', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/epue/capstone.git/capstone/ws_ros2_opencv/install', 'ROS_DISTRO': 'iron', 'LOGNAME': 'epue', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'epue', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/iron/bin:/opt/ros/humble/bin:/home/epue/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/epue-desktop:@/tmp/.ICE-unix/1293,unix/epue-desktop:/tmp/.ICE-unix/1293', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/36b3a533_e2fd_4a9e_9d4a_2d588fdf9606', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.6542T2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.107', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv:/opt/ros/iron:/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:/opt/ros/iron/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[11.130545] (-) TimerEvent: {}
+[11.232538] (-) TimerEvent: {}
+[11.335159] (-) TimerEvent: {}
+[11.436173] (-) TimerEvent: {}
+[11.537637] (-) TimerEvent: {}
+[11.639291] (-) TimerEvent: {}
+[11.740820] (-) TimerEvent: {}
+[11.842466] (-) TimerEvent: {}
+[11.946294] (-) TimerEvent: {}
+[12.050444] (-) TimerEvent: {}
+[12.152035] (-) TimerEvent: {}
+[12.253338] (-) TimerEvent: {}
+[12.354641] (-) TimerEvent: {}
+[12.455903] (-) TimerEvent: {}
+[12.557257] (-) TimerEvent: {}
+[12.659108] (-) TimerEvent: {}
+[12.760632] (-) TimerEvent: {}
+[12.862664] (-) TimerEvent: {}
+[12.968160] (-) TimerEvent: {}
+[13.069384] (-) TimerEvent: {}
+[13.170768] (-) TimerEvent: {}
+[13.273241] (-) TimerEvent: {}
+[13.376511] (-) TimerEvent: {}
+[13.479849] (-) TimerEvent: {}
+[13.583573] (-) TimerEvent: {}
+[13.685941] (-) TimerEvent: {}
+[13.788349] (-) TimerEvent: {}
+[13.890765] (-) TimerEvent: {}
+[13.993366] (-) TimerEvent: {}
+[14.095783] (-) TimerEvent: {}
+[14.197035] (-) TimerEvent: {}
+[14.298347] (-) TimerEvent: {}
+[14.399759] (-) TimerEvent: {}
+[14.501046] (-) TimerEvent: {}
+[14.602313] (-) TimerEvent: {}
+[14.703589] (-) TimerEvent: {}
+[14.805116] (-) TimerEvent: {}
+[14.906633] (-) TimerEvent: {}
+[15.008196] (-) TimerEvent: {}
+[15.109396] (-) TimerEvent: {}
+[15.210495] (-) TimerEvent: {}
+[15.311818] (-) TimerEvent: {}
+[15.412979] (-) TimerEvent: {}
+[15.425543] (ros2_opencv) StdoutLine: {'line': b'running egg_info\n'}
+[15.432334] (ros2_opencv) StdoutLine: {'line': b'writing ../../build/ros2_opencv/ros2_opencv.egg-info/PKG-INFO\n'}
+[15.435953] (ros2_opencv) StdoutLine: {'line': b'writing dependency_links to ../../build/ros2_opencv/ros2_opencv.egg-info/dependency_links.txt\n'}
+[15.442867] (ros2_opencv) StdoutLine: {'line': b'writing entry points to ../../build/ros2_opencv/ros2_opencv.egg-info/entry_points.txt\n'}
+[15.443961] (ros2_opencv) StdoutLine: {'line': b'writing requirements to ../../build/ros2_opencv/ros2_opencv.egg-info/requires.txt\n'}
+[15.444958] (ros2_opencv) StdoutLine: {'line': b'writing top-level names to ../../build/ros2_opencv/ros2_opencv.egg-info/top_level.txt\n'}
+[15.513370] (-) TimerEvent: {}
+[15.616101] (-) TimerEvent: {}
+[15.717482] (-) TimerEvent: {}
+[15.737423] (ros2_opencv) StdoutLine: {'line': b"reading manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'\n"}
+[15.746256] (ros2_opencv) StdoutLine: {'line': b"writing manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'\n"}
+[15.747417] (ros2_opencv) StdoutLine: {'line': b'running build\n'}
+[15.748380] (ros2_opencv) StdoutLine: {'line': b'running build_py\n'}
+[15.755156] (ros2_opencv) StdoutLine: {'line': b'copying ros2_opencv/object_detection.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv\n'}
+[15.769255] (ros2_opencv) StdoutLine: {'line': b'running install\n'}
+[15.776643] (ros2_opencv) StdoutLine: {'line': b'running install_lib\n'}
+[15.781214] (ros2_opencv) StdoutLine: {'line': b'copying /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv/object_detection.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv\n'}
+[15.787205] (ros2_opencv) StdoutLine: {'line': b'byte-compiling /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/object_detection.py to object_detection.cpython-310.pyc\n'}
+[15.792791] (ros2_opencv) StdoutLine: {'line': b'running install_data\n'}
+[15.805260] (ros2_opencv) StdoutLine: {'line': b'running install_egg_info\n'}
+[15.809476] (ros2_opencv) StdoutLine: {'line': b"removing '/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[15.813652] (ros2_opencv) StdoutLine: {'line': b'Copying ../../build/ros2_opencv/ros2_opencv.egg-info to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv-0.0.0-py3.10.egg-info\n'}
+[15.820429] (-) TimerEvent: {}
+[15.826836] (ros2_opencv) StdoutLine: {'line': b'running install_scripts\n'}
+[15.920742] (-) TimerEvent: {}
+[15.966258] (ros2_opencv) StdoutLine: {'line': b'Installing image_display_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv\n'}
+[15.971454] (ros2_opencv) StdoutLine: {'line': b'Installing object_detection_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv\n'}
+[15.975026] (ros2_opencv) StdoutLine: {'line': b'Installing publisher_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv\n'}
+[15.983930] (ros2_opencv) StdoutLine: {'line': b'Installing subscriber_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv\n'}
+[15.996740] (ros2_opencv) StdoutLine: {'line': b"writing list of installed files to '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log'\n"}
+[16.021196] (-) TimerEvent: {}
+[16.124408] (-) TimerEvent: {}
+[16.226058] (-) TimerEvent: {}
+[16.294571] (ros2_opencv) CommandEnded: {'returncode': 0}
+[16.326285] (-) TimerEvent: {}
+[16.427453] (-) TimerEvent: {}
+[16.435947] (ros2_opencv) JobEnded: {'identifier': 'ros2_opencv', 'rc': 0}
+[16.460677] (-) EventReactorShutdown: {}

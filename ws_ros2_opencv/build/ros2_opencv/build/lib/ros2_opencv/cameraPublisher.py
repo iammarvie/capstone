@@ -57,7 +57,7 @@ class PublisherNodeClass(Node):
 		# IF the image is read successfully
 		if success:
 			# convert the image to a ros2 message
-			imageMessage = self.bridgeObject.cv2_to_imgmsg(frame)
+			imageMessage = self.bridgeObject.cv2_to_imgmsg(frame,'bgr8')
 
 			# publish the message
 			self.publisher.publish(imageMessage)
