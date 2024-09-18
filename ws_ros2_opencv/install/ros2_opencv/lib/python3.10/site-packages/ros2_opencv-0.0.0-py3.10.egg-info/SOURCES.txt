@@ -13,6 +13,7 @@ resource/ros2_opencv
 ros2_opencv/__init__.py
 ros2_opencv/cameraPublisher.py
 ros2_opencv/detection_display.py
+ros2_opencv/driving.py
 ros2_opencv/object_detection.py
 ros2_opencv/subscriberimage.py
 test/test_copyright.py

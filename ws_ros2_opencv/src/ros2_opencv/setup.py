@@ -24,6 +24,7 @@ setup(
     entry_points={
         'console_scripts':['publisher_node=ros2_opencv.cameraPublisher:main','subscriber_node = ros2_opencv.subscriberimage:main',
         'object_detection_node=ros2_opencv.object_detection:main','image_display_node = ros2_opencv.detection_display:main',
+        'driver_node=ros2_opencv.driving:main',
         ],
     },
 )

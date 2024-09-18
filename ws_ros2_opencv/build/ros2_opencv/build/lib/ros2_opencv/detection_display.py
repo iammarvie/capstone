@@ -12,7 +12,7 @@ class ImageDisplayNode(Node):
             Image,
             'detection_image',  # Topic to subscribe to
             self.listener_callback,
-            20)
+            3)
         self.subscription  # Prevent unused variable warning
         self.bridge = CvBridge()
 

@@ -30,13 +30,13 @@ class PublisherNodeClass(Node):
 		self.topicNameFrames = 'image_raw'#'topic_camera_image'
 
 		#the queue size for messages
-		self.queueSize=20
+		self.queueSize=3
 		
 		#self create publisher  creates the publisher that publishes the messages of the type Image, over the topic self.topicNameFrames and with the queue size self.queueSize
 		self.publisher = self.create_publisher(Image, self.topicNameFrames, self.queueSize)
 
 		#communication period
-		self.periodCommunication = 0.001
+		self.periodCommunication = 0.1
 
 		#create the timer that calls the function self.timer_callback at the period self.periodCommunication
 		self.timer = self.create_timer(self.periodCommunication, self.timer_callbackFunction)
@@ -50,7 +50,7 @@ class PublisherNodeClass(Node):
 		# read the image from the camera
 		success, frame = self.camera.read()
 		# resize the image
-		frame = cv2.resize(frame, (640, 480), interpolation=cv2.INTER_CUBIC)
+		frame = cv2.resize(frame, (320, 240), interpolation=cv2.INTER_CUBIC)
 
 		#flip the image
 		frame = cv2.flip(frame,0)
