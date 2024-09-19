@@ -15,6 +15,7 @@ class DrivingNode(Node):
         self.pca = self.servo_motor_initialization()
         self.get_logger().info('Servo motor initialized.')
 
+        self.get_logger().info('Waiting 10 seconds to begin moving.')
         # Timer to wait 10 seconds before starting the car
         self.start_timer = self.create_timer(10.0, self.start_motor)
 

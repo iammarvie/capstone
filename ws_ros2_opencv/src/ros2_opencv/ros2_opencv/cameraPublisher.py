@@ -7,6 +7,7 @@ import rclpy
 from sensor_msgs.msg import Image
 from rclpy.node import Node
 from cv_bridge import CvBridge
+import time
 
 #The argument "Node" means that the PublisherNodeClass is a child of the class called Node
 # The Node class is a standard ROS2 class
@@ -43,7 +44,6 @@ class PublisherNodeClass(Node):
 
 		# this is the counter that is used to count the number of messages sent
 		self.i = 0
-
 		# this is the callback function that is called every self.periodCommunication seconds
 	def timer_callbackFunction(self):
 
@@ -51,7 +51,6 @@ class PublisherNodeClass(Node):
 		success, frame = self.camera.read()
 		# resize the image
 		frame = cv2.resize(frame, (320, 240), interpolation=cv2.INTER_CUBIC)
-
 		#flip the image
 		frame = cv2.flip(frame,0)
 		# IF the image is read successfully
