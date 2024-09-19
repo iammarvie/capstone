@@ -5,7 +5,7 @@ from adafruit_pca9685 import PCA9685
 import time
 import adafruit_motor.servo
 import RPi.GPIO as IO
-import rospy
+#import rospy
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Float32
 import sys
