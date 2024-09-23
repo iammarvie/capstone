@@ -17,7 +17,7 @@ class DrivingNode(Node):
 
         self.get_logger().info('Waiting 10 seconds to begin moving.')
         # Timer to wait 10 seconds before starting the car
-        self.start_timer = self.create_timer(10.0, self.start_motor)
+        self.start_timer = self.create_timer(30.0, self.start_motor)
 
     def servo_motor_initialization(self):
         # Initialize the I2C bus and PCA9685

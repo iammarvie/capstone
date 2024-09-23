@@ -15,10 +15,10 @@ class ObjectDetectionNode(Node):
         self.bridge = CvBridge()
         self.i = 0  # Initialize the image counter
 
-        self.get_logger().info('Make sure to pip install ultralytics for YOLO')
+        #self.get_logger().info('Make sure to pip install ultralytics for YOLO')
 
         # Load YOLOv5 model with pre-trained weights
-        self.model = YOLO('yolov5s.pt')
+        self.model = YOLO('yolov5nu.pt')
         self.get_logger().info('Object detection model loaded successfully')
         self.subscription
 
@@ -42,7 +42,7 @@ class ObjectDetectionNode(Node):
                     label = self.model.names[class_id]  # Convert class index to label
 
                     # Only draw boxes if confidence is above threshold
-                    if conf > 0.5:
+                    if conf > 0.6:
                         cv2.rectangle(cv_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
                         cv2.putText(cv_image, f'{label} {conf:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
 

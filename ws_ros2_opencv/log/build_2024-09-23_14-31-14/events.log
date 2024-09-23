@@ -1,0 +1,80 @@
+[0.000000] (-) TimerEvent: {}
+[0.001802] (ros2_opencv) JobQueued: {'identifier': 'ros2_opencv', 'dependencies': OrderedDict()}
+[0.002482] (ros2_opencv) JobStarted: {'identifier': 'ros2_opencv'}
+[0.099015] (-) TimerEvent: {}
+[0.199862] (-) TimerEvent: {}
+[0.301263] (-) TimerEvent: {}
+[0.402629] (-) TimerEvent: {}
+[0.503568] (-) TimerEvent: {}
+[0.616309] (-) TimerEvent: {}
+[0.719917] (-) TimerEvent: {}
+[0.820682] (-) TimerEvent: {}
+[0.921365] (-) TimerEvent: {}
+[1.022118] (-) TimerEvent: {}
+[1.122812] (-) TimerEvent: {}
+[1.223789] (-) TimerEvent: {}
+[1.326817] (-) TimerEvent: {}
+[1.427861] (-) TimerEvent: {}
+[1.529174] (-) TimerEvent: {}
+[1.630281] (-) TimerEvent: {}
+[1.731057] (-) TimerEvent: {}
+[1.831862] (-) TimerEvent: {}
+[1.932556] (-) TimerEvent: {}
+[2.033244] (-) TimerEvent: {}
+[2.134026] (-) TimerEvent: {}
+[2.234896] (-) TimerEvent: {}
+[2.335559] (-) TimerEvent: {}
+[2.436260] (-) TimerEvent: {}
+[2.537008] (-) TimerEvent: {}
+[2.637739] (-) TimerEvent: {}
+[2.738418] (-) TimerEvent: {}
+[2.839087] (-) TimerEvent: {}
+[2.939781] (-) TimerEvent: {}
+[3.040492] (-) TimerEvent: {}
+[3.141359] (-) TimerEvent: {}
+[3.242286] (-) TimerEvent: {}
+[3.343085] (-) TimerEvent: {}
+[3.443911] (-) TimerEvent: {}
+[3.544614] (-) TimerEvent: {}
+[3.645282] (-) TimerEvent: {}
+[3.746054] (-) TimerEvent: {}
+[3.846781] (-) TimerEvent: {}
+[3.948127] (-) TimerEvent: {}
+[4.049064] (-) TimerEvent: {}
+[4.150476] (-) TimerEvent: {}
+[4.208818] (ros2_opencv) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/ros2_opencv', 'build', '--build-base', '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build', 'install', '--record', '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'epue', 'SSH_CLIENT': '172.27.85.218 52239 22', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'BROWSER': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/bin/helpers/browser.sh', 'MOTD_SHOWN': 'pam', 'HOME': '/home/epue', 'TERM_PROGRAM_VERSION': '1.93.1', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-dc3eec8f-bf06-43f8-9e9c-584bc66dc037.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/certs/ca-certificates.crt', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'ROS_DISTRO': 'humble', 'LOGNAME': 'epue', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '10', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/bin/remote-cli:/home/epue/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-ff328d3da4.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '172.27.85.218 52239 172.27.115.180 22', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[4.250709] (-) TimerEvent: {}
+[4.351928] (-) TimerEvent: {}
+[4.452819] (-) TimerEvent: {}
+[4.553991] (-) TimerEvent: {}
+[4.655161] (-) TimerEvent: {}
+[4.756251] (-) TimerEvent: {}
+[4.856940] (-) TimerEvent: {}
+[4.957764] (-) TimerEvent: {}
+[5.058578] (-) TimerEvent: {}
+[5.092643] (ros2_opencv) StderrLine: {'line': b"/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py:261: UserWarning: Unknown distribution option: 'tests_require'\n"}
+[5.093399] (ros2_opencv) StderrLine: {'line': b'  warnings.warn(msg)\n'}
+[5.158764] (-) TimerEvent: {}
+[5.259484] (-) TimerEvent: {}
+[5.360270] (-) TimerEvent: {}
+[5.460947] (-) TimerEvent: {}
+[5.561663] (-) TimerEvent: {}
+[5.660609] (ros2_opencv) StderrLine: {'line': b"error: Multiple top-level packages discovered in a flat-layout: ['launch', 'resource', 'ros2_opencv'].\n"}
+[5.662077] (-) TimerEvent: {}
+[5.662915] (ros2_opencv) StderrLine: {'line': b'\n'}
+[5.664419] (ros2_opencv) StderrLine: {'line': b'To avoid accidental inclusion of unwanted files or directories,\n'}
+[5.665443] (ros2_opencv) StderrLine: {'line': b'setuptools will not proceed with this build.\n'}
+[5.666314] (ros2_opencv) StderrLine: {'line': b'\n'}
+[5.667354] (ros2_opencv) StderrLine: {'line': b'If you are trying to create a single distribution with multiple packages\n'}
+[5.668816] (ros2_opencv) StderrLine: {'line': b'on purpose, you should not rely on automatic discovery.\n'}
+[5.675236] (ros2_opencv) StderrLine: {'line': b'Instead, consider the following options:\n'}
+[5.676494] (ros2_opencv) StderrLine: {'line': b'\n'}
+[5.677820] (ros2_opencv) StderrLine: {'line': b'1. set up custom discovery (`find` directive with `include` or `exclude`)\n'}
+[5.678894] (ros2_opencv) StderrLine: {'line': b'2. use a `src-layout`\n'}
+[5.679871] (ros2_opencv) StderrLine: {'line': b'3. explicitly set `py_modules` or `packages` with a list of names\n'}
+[5.680882] (ros2_opencv) StderrLine: {'line': b'\n'}
+[5.681858] (ros2_opencv) StderrLine: {'line': b'To find more information, look for "package discovery" on setuptools docs.\n'}
+[5.762330] (-) TimerEvent: {}
+[5.790403] (ros2_opencv) CommandEnded: {'returncode': 1}
+[5.791685] (ros2_opencv) JobEnded: {'identifier': 'ros2_opencv', 'rc': 1}
+[5.802421] (-) EventReactorShutdown: {}
