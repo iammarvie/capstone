@@ -44,7 +44,6 @@ class PublisherNodeClass(Node):
 
 		# this is the counter that is used to count the number of messages sent
 		self.i = 0
-		self.prev_time = time.time()  # For FPS calculation
 		# this is the callback function that is called every self.periodCommunication seconds
 	def timer_callbackFunction(self):
 
@@ -52,14 +51,8 @@ class PublisherNodeClass(Node):
 		success, frame = self.camera.read()
 		# resize the image
 		frame = cv2.resize(frame, (320, 240), interpolation=cv2.INTER_CUBIC)
-		 # Calculate FPS
-		current_time = time.time()
-		fps = 1.0 / (current_time - self.prev_time)
-		self.prev_time = current_time
-
-		print (f"fps: {fps}")
 		#flip the image
-		frame = cv2.flip(frame,0)
+		frame = cv2.flip(frame,-1)
 		# IF the image is read successfully
 		if success:
 			# convert the image to a ros2 message

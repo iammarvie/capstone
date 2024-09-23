@@ -4,12 +4,16 @@
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/subscriberimage.py
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__init__.py
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/driving.py
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/object_detection_ssd_lite.py
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/object_detection_yolo.py
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/detection_display.cpython-310.pyc
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/object_detection.cpython-310.pyc
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/cameraPublisher.cpython-310.pyc
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/subscriberimage.cpython-310.pyc
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/__init__.cpython-310.pyc
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/driving.cpython-310.pyc
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/object_detection_ssd_lite.cpython-310.pyc
+/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/__pycache__/object_detection_yolo.cpython-310.pyc
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/share/ament_index/resource_index/packages/ros2_opencv
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/share/ros2_opencv/package.xml
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/share/ros2_opencv/launch/camera_launch.launch.py
@@ -20,7 +24,6 @@
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv-0.0.0-py3.10.egg-info/SOURCES.txt
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv-0.0.0-py3.10.egg-info/zip-safe
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv-0.0.0-py3.10.egg-info/PKG-INFO
-/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv/driver_node
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv/image_display_node
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv/object_detection_node
 /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv/publisher_node
