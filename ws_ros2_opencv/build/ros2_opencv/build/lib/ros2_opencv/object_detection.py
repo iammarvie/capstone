@@ -21,7 +21,7 @@ class ObjectDetectionNode(Node):
         self.get_logger().info(f'Using device: {device}')
 
         # Load custom YOLOv5 model
-        self.model = YOLO('yolov5nu.pt')
+        self.model = YOLO('yolov8n.pt')
         self.model = self.model.to(device)  # Move model to GPU if available
 
     def listener_callback(self, msg):
@@ -49,7 +49,7 @@ class ObjectDetectionNode(Node):
                 label = self.model.names[class_id]  # Convert class index to label
 
                 # Only draw boxes if confidence is above threshold
-                if conf > 0.8: ### CHANGE BACK TO 0.6
+                if conf > 0.4: ### CHANGE BACK TO 0.6
                     cv2.rectangle(cv_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
                     cv2.putText(cv_image, f'{label} {conf:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
 

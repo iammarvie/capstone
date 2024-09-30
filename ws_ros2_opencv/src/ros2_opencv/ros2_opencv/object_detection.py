@@ -21,7 +21,7 @@ class ObjectDetectionNode(Node):
         self.get_logger().info(f'Using device: {device}')
 
         # Load custom YOLOv5 model
-        self.model = YOLO('yolov5nu.pt')
+        self.model = YOLO('yolov8n.pt')
         self.model = self.model.to(device)  # Move model to GPU if available
 
     def listener_callback(self, msg):
