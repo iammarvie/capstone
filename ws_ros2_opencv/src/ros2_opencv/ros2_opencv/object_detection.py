@@ -12,8 +12,8 @@ class ObjectDetectionNode(Node):
     def __init__(self):
         super().__init__('object_detection_node')
         self.bridge = CvBridge()  # Initialize CvBridge
-        self.subscription = self.create_subscription(Image, 'image_raw', self.listener_callback, 10)
-        self.publisher_ = self.create_publisher(Image, 'detection_image', 10)
+        self.subscription = self.create_subscription(Image, 'image_raw', self.listener_callback, 1)
+        self.publisher_ = self.create_publisher(Image, 'detection_image', 1)
         self.i = 0  # Initialize the image counter
 
         # Load the YOLO model and set it to GPU if available
@@ -49,7 +49,7 @@ class ObjectDetectionNode(Node):
                 label = self.model.names[class_id]  # Convert class index to label
 
                 # Only draw boxes if confidence is above threshold
-                if conf > 0.6:
+                if conf > 0.4: ### CHANGE BACK TO 0.6
                     cv2.rectangle(cv_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
                     cv2.putText(cv_image, f'{label} {conf:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
 
