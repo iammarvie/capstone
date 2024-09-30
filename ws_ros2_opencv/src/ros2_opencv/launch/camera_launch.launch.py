@@ -27,4 +27,10 @@ def generate_launch_description():
             name='driving_node',
             output='screen'
         ),
+        Node(
+            package='ros2_opencv',
+            executable='stop_sign_detection',
+            name='stop_sign_detection',
+            output='screen'
+        ),
     ])
