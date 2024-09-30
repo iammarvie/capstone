@@ -1,0 +1,41 @@
+[4.820s] Invoking command in '/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv': PYTHONPATH=/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/ros2_opencv build --build-base /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build install --record /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log --single-version-externally-managed install_data
+[5.796s] /home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py:261: UserWarning: Unknown distribution option: 'tests_require'
+[5.796s]   warnings.warn(msg)
+[6.467s] running egg_info
+[6.552s] writing ../../build/ros2_opencv/ros2_opencv.egg-info/PKG-INFO
+[6.555s] writing dependency_links to ../../build/ros2_opencv/ros2_opencv.egg-info/dependency_links.txt
+[6.557s] writing entry points to ../../build/ros2_opencv/ros2_opencv.egg-info/entry_points.txt
+[6.558s] writing requirements to ../../build/ros2_opencv/ros2_opencv.egg-info/requires.txt
+[6.559s] writing top-level names to ../../build/ros2_opencv/ros2_opencv.egg-info/top_level.txt
+[6.790s] reading manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+[6.793s] Traceback (most recent call last):
+[6.794s]   File "/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv/setup.py", line 7, in <module>
+[6.794s]     setup(
+[6.795s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 117, in setup
+[6.795s]     return distutils.core.setup(**attrs)
+[6.796s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 183, in setup
+[6.796s]     return run_commands(dist)
+[6.796s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 199, in run_commands
+[6.797s]     dist.run_commands()
+[6.798s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 954, in run_commands
+[6.798s]     self.run_command(cmd)
+[6.799s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/dist.py", line 950, in run_command
+[6.800s]     super().run_command(command)
+[6.800s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+[6.801s]     cmd_obj.run()
+[6.803s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/egg_info.py", line 311, in run
+[6.805s]     self.find_sources()
+[6.806s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/egg_info.py", line 319, in find_sources
+[6.807s]     mm.run()
+[6.808s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/egg_info.py", line 545, in run
+[6.809s]     self.prune_file_list()
+[6.810s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/sdist.py", line 161, in prune_file_list
+[6.811s]     super().prune_file_list()
+[6.812s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/command/sdist.py", line 380, in prune_file_list
+[6.813s]     base_dir = self.distribution.get_fullname()
+[6.814s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_core_metadata.py", line 267, in get_fullname
+[6.815s]     return _distribution_fullname(self.get_name(), self.get_version())
+[6.817s]   File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_core_metadata.py", line 285, in _distribution_fullname
+[6.817s]     canonicalize_version(version, strip_trailing_zero=False),
+[6.818s] TypeError: canonicalize_version() got an unexpected keyword argument 'strip_trailing_zero'
+[6.943s] Invoked command in '/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv' returned '1': PYTHONPATH=/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/ros2_opencv build --build-base /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build install --record /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log --single-version-externally-managed install_data

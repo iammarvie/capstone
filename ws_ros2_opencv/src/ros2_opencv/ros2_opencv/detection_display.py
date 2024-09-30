@@ -12,16 +12,16 @@ class ImageDisplayNode(Node):
             Image,
             'detection_image',  # Topic to subscribe to
             self.listener_callback,
-            3)
+            1)
         self.subscription  # Prevent unused variable warning
         self.bridge = CvBridge()
 
           # Initialize video writer
         self.video_writer = None
-        self.video_file = 'output_video.mp4'  # Output video file name
+        self.video_file = 'output_video.avi'  # Output video file name
         self.frame_width = 320  # Adjust to match your frame width
-        self.frame_height = 240  # Adjust to match your frame height
-        self.frame_rate = 10.0  # Frames per second
+        self.frame_height = 320  # Adjust to match your frame height
+        self.frame_rate = 1.0  # Frames per second
 
     def listener_callback(self, msg):
         

@@ -50,9 +50,9 @@ class PublisherNodeClass(Node):
 		# read the image from the camera
 		success, frame = self.camera.read()
 		# resize the image
-		frame = cv2.resize(frame, (320, 240), interpolation=cv2.INTER_CUBIC)
+		frame = cv2.resize(frame, (320, 320), interpolation=cv2.INTER_AREA)
 		#flip the image
-		frame = cv2.flip(frame,0)
+		frame = cv2.flip(frame,-1)
 		# IF the image is read successfully
 		if success:
 			# convert the image to a ros2 message

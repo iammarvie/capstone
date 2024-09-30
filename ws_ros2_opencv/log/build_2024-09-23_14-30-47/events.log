@@ -1,0 +1,107 @@
+[0.000000] (-) TimerEvent: {}
+[0.001417] (ros2_opencv) JobQueued: {'identifier': 'ros2_opencv', 'dependencies': OrderedDict()}
+[0.001768] (ros2_opencv) JobStarted: {'identifier': 'ros2_opencv'}
+[0.089466] (-) TimerEvent: {}
+[0.190667] (-) TimerEvent: {}
+[0.291562] (-) TimerEvent: {}
+[0.392401] (-) TimerEvent: {}
+[0.493188] (-) TimerEvent: {}
+[0.594030] (-) TimerEvent: {}
+[0.694866] (-) TimerEvent: {}
+[0.795555] (-) TimerEvent: {}
+[0.896228] (-) TimerEvent: {}
+[0.996977] (-) TimerEvent: {}
+[1.097861] (-) TimerEvent: {}
+[1.200037] (-) TimerEvent: {}
+[1.301310] (-) TimerEvent: {}
+[1.402851] (-) TimerEvent: {}
+[1.503752] (-) TimerEvent: {}
+[1.604993] (-) TimerEvent: {}
+[1.706127] (-) TimerEvent: {}
+[1.806818] (-) TimerEvent: {}
+[1.907561] (-) TimerEvent: {}
+[2.008356] (-) TimerEvent: {}
+[2.109037] (-) TimerEvent: {}
+[2.209799] (-) TimerEvent: {}
+[2.310664] (-) TimerEvent: {}
+[2.411405] (-) TimerEvent: {}
+[2.512189] (-) TimerEvent: {}
+[2.612903] (-) TimerEvent: {}
+[2.713711] (-) TimerEvent: {}
+[2.815301] (-) TimerEvent: {}
+[2.916616] (-) TimerEvent: {}
+[3.017400] (-) TimerEvent: {}
+[3.118232] (-) TimerEvent: {}
+[3.219213] (-) TimerEvent: {}
+[3.320179] (-) TimerEvent: {}
+[3.421288] (-) TimerEvent: {}
+[3.522058] (-) TimerEvent: {}
+[3.622725] (-) TimerEvent: {}
+[3.723427] (-) TimerEvent: {}
+[3.824169] (-) TimerEvent: {}
+[3.925153] (-) TimerEvent: {}
+[4.027134] (-) TimerEvent: {}
+[4.095546] (ros2_opencv) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/ros2_opencv', 'build', '--build-base', '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build', 'install', '--record', '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'epue', 'SSH_CLIENT': '172.27.85.218 52239 22', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'BROWSER': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/bin/helpers/browser.sh', 'MOTD_SHOWN': 'pam', 'HOME': '/home/epue', 'TERM_PROGRAM_VERSION': '1.93.1', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-dc3eec8f-bf06-43f8-9e9c-584bc66dc037.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/certs/ca-certificates.crt', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'ROS_DISTRO': 'humble', 'LOGNAME': 'epue', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '10', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/epue/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/bin/remote-cli:/home/epue/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-ff328d3da4.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '172.27.85.218 52239 172.27.115.180 22', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[4.128909] (-) TimerEvent: {}
+[4.229927] (-) TimerEvent: {}
+[4.330691] (-) TimerEvent: {}
+[4.431480] (-) TimerEvent: {}
+[4.532217] (-) TimerEvent: {}
+[4.632876] (-) TimerEvent: {}
+[4.733759] (-) TimerEvent: {}
+[4.834532] (-) TimerEvent: {}
+[4.935279] (-) TimerEvent: {}
+[4.965998] (ros2_opencv) StderrLine: {'line': b"/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py:261: UserWarning: Unknown distribution option: 'tests_require'\n"}
+[4.967192] (ros2_opencv) StderrLine: {'line': b'  warnings.warn(msg)\n'}
+[5.035503] (-) TimerEvent: {}
+[5.136322] (-) TimerEvent: {}
+[5.237384] (-) TimerEvent: {}
+[5.339533] (-) TimerEvent: {}
+[5.440337] (-) TimerEvent: {}
+[5.542227] (-) TimerEvent: {}
+[5.642926] (-) TimerEvent: {}
+[5.657550] (ros2_opencv) StdoutLine: {'line': b'running egg_info\n'}
+[5.743158] (-) TimerEvent: {}
+[5.798632] (ros2_opencv) StdoutLine: {'line': b'writing ../../build/ros2_opencv/ros2_opencv.egg-info/PKG-INFO\n'}
+[5.804563] (ros2_opencv) StdoutLine: {'line': b'writing dependency_links to ../../build/ros2_opencv/ros2_opencv.egg-info/dependency_links.txt\n'}
+[5.806719] (ros2_opencv) StdoutLine: {'line': b'writing entry points to ../../build/ros2_opencv/ros2_opencv.egg-info/entry_points.txt\n'}
+[5.808875] (ros2_opencv) StdoutLine: {'line': b'writing requirements to ../../build/ros2_opencv/ros2_opencv.egg-info/requires.txt\n'}
+[5.811135] (ros2_opencv) StdoutLine: {'line': b'writing top-level names to ../../build/ros2_opencv/ros2_opencv.egg-info/top_level.txt\n'}
+[5.843355] (-) TimerEvent: {}
+[5.944511] (-) TimerEvent: {}
+[6.045325] (-) TimerEvent: {}
+[6.052531] (ros2_opencv) StdoutLine: {'line': b"reading manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'\n"}
+[6.067615] (ros2_opencv) StderrLine: {'line': b'Traceback (most recent call last):\n'}
+[6.069106] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv/setup.py", line 7, in <module>\n'}
+[6.075989] (ros2_opencv) StderrLine: {'line': b'    setup(\n'}
+[6.079047] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/__init__.py", line 117, in setup\n'}
+[6.080549] (ros2_opencv) StderrLine: {'line': b'    return distutils.core.setup(**attrs)\n'}
+[6.082322] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 183, in setup\n'}
+[6.083811] (ros2_opencv) StderrLine: {'line': b'    return run_commands(dist)\n'}
+[6.092158] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/core.py", line 199, in run_commands\n'}
+[6.096320] (ros2_opencv) StderrLine: {'line': b'    dist.run_commands()\n'}
+[6.108204] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 954, in run_commands\n'}
+[6.109512] (ros2_opencv) StderrLine: {'line': b'    self.run_command(cmd)\n'}
+[6.111802] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/dist.py", line 950, in run_command\n'}
+[6.113226] (ros2_opencv) StderrLine: {'line': b'    super().run_command(command)\n'}
+[6.114759] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py", line 973, in run_command\n'}
+[6.116056] (ros2_opencv) StderrLine: {'line': b'    cmd_obj.run()\n'}
+[6.117331] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/egg_info.py", line 311, in run\n'}
+[6.118775] (ros2_opencv) StderrLine: {'line': b'    self.find_sources()\n'}
+[6.120157] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/egg_info.py", line 319, in find_sources\n'}
+[6.121456] (ros2_opencv) StderrLine: {'line': b'    mm.run()\n'}
+[6.123107] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/egg_info.py", line 545, in run\n'}
+[6.124595] (ros2_opencv) StderrLine: {'line': b'    self.prune_file_list()\n'}
+[6.125808] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/command/sdist.py", line 161, in prune_file_list\n'}
+[6.126894] (ros2_opencv) StderrLine: {'line': b'    super().prune_file_list()\n'}
+[6.128228] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_distutils/command/sdist.py", line 380, in prune_file_list\n'}
+[6.133071] (ros2_opencv) StderrLine: {'line': b'    base_dir = self.distribution.get_fullname()\n'}
+[6.133904] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_core_metadata.py", line 267, in get_fullname\n'}
+[6.134711] (ros2_opencv) StderrLine: {'line': b'    return _distribution_fullname(self.get_name(), self.get_version())\n'}
+[6.135409] (ros2_opencv) StderrLine: {'line': b'  File "/home/epue/.local/lib/python3.10/site-packages/setuptools/_core_metadata.py", line 285, in _distribution_fullname\n'}
+[6.136208] (ros2_opencv) StderrLine: {'line': b'    canonicalize_version(version, strip_trailing_zero=False),\n'}
+[6.136950] (ros2_opencv) StderrLine: {'line': b"TypeError: canonicalize_version() got an unexpected keyword argument 'strip_trailing_zero'\n"}
+[6.146560] (-) TimerEvent: {}
+[6.227139] (ros2_opencv) CommandEnded: {'returncode': 1}
+[6.230414] (ros2_opencv) JobEnded: {'identifier': 'ros2_opencv', 'rc': 1}
+[6.241785] (-) EventReactorShutdown: {}
