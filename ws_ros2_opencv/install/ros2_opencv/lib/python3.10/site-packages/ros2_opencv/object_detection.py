@@ -48,10 +48,19 @@ class ObjectDetectionNode(Node):
                 class_id = int(box.cls[0].cpu())  # Class index
                 label = self.model.names[class_id]  # Convert class index to label
 
+                # Calculate bounding box width and height
+                bbox_width = x2 - x1
+                bbox_height = y2 - y1
+                bbox_area = bbox_width * bbox_height
+
                 # Only draw boxes if confidence is above threshold
                 if conf > 0.4: ### CHANGE BACK TO 0.6
                     cv2.rectangle(cv_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
                     cv2.putText(cv_image, f'{label} {conf:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    # Display bounding box size information
+                    cv2.putText(cv_image, f'W: {bbox_width}px H: {bbox_height}px', (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+                    cv2.putText(cv_image, f'Area: {bbox_area}px^2', (x1, y2 + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+
 
         except Exception as e:
             self.get_logger().error(f'Error during model inference: {e}')

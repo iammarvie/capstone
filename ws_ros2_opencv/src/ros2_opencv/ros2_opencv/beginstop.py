@@ -32,7 +32,7 @@ class StopSignDetectionNode(Node):
         bbox_x1, bbox_y1, bbox_x2, bbox_y2 = map(int, data[1:])  # Bounding box coordinates
 
         # Check if the detected object is a stop sign
-        if label == 'stop_sign':
+        if label == 'stop sign':
             # Calculate the size of the bounding box (can be used to estimate distance)
             bbox_width = bbox_x2 - bbox_x1
             bbox_height = bbox_y2 - bbox_y1

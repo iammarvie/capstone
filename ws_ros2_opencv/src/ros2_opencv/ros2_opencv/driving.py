@@ -75,7 +75,7 @@ class DrivingNode(Node):
         stop_timer = time.time()
         # Extract the linear.x from the Twist message (forward velocity)
         linear_speed = msg.linear.x
-
+        print ("linear stop received")
         # Translate this linear speed to motor speed
         self.motor_speed(linear_speed)
 
