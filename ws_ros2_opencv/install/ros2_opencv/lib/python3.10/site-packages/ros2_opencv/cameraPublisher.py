@@ -31,7 +31,7 @@ class PublisherNodeClass(Node):
 		self.topicNameFrames = 'image_raw'#'topic_camera_image'
 
 		#the queue size for messages
-		self.queueSize=3
+		self.queueSize=1
 		
 		#self create publisher  creates the publisher that publishes the messages of the type Image, over the topic self.topicNameFrames and with the queue size self.queueSize
 		self.publisher = self.create_publisher(Image, self.topicNameFrames, self.queueSize)
