@@ -1,8 +1,3 @@
-# This node will take info from the object detection node and sees when a stop sign has been detected as the car is moving. Using the data from the object detection node, the car will stop when a stop sign is detected.
-#using the bodundary boxes, it will detect how far the stop sign is from the car and stop the car when it is close enough.
-#The distance threshold is set to 50 pixels, but this can be adjusted based on the actual detection data and the camera's field of view.
-#The stop_the_car method publishes a zero velocity Twist message to stop the car. It also sets a flag to prevent multiple stop commands from being sent.
-
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist  # For controlling the car
@@ -22,7 +17,7 @@ class StopSignDetectionNode(Node):
 
         # Parameters for stopping behavior
         self.stop_sign_detected = False
-        self.distance_threshold = 50  # Distance threshold in pixels for stopping (adjust accordingly)
+        self.distance_threshold = 50  # Distance threshold for stopping (adjust accordingly)
 
     def listener_callback(self, msg):
         # Example data extraction from object detection (adjust to match actual detection data structure)
@@ -43,18 +38,26 @@ class StopSignDetectionNode(Node):
             # Log the detection
             self.get_logger().info(f'Stop sign detected. Distance estimate: {distance_estimate:.2f}')
 
-            # If the bounding box indicates that the stop sign is close enough, stop the car
-            if bbox_width > self.distance_threshold or bbox_height > self.distance_threshold:
+            # If the estimated distance is below the threshold, stop the car
+            if distance_estimate < self.distance_threshold:
                 self.stop_the_car()
 
     def stop_the_car(self):
         if not self.stop_sign_detected:
             self.get_logger().info('Stopping the car...')
+            
             # Publish zero velocity to stop the car
             stop_msg = Twist()
             stop_msg.linear.x = 0.0
             stop_msg.angular.z = 0.0
-            self.publisher_.publish(stop_msg)
+            
+            # Check if the publisher is initialized
+            if hasattr(self, 'publisher_') and self.publisher_ is not None:
+                self.publisher_.publish(stop_msg)
+                self.get_logger().info('Stop command published.')
+            else:
+                self.get_logger().error('Twist publisher not initialized.')
+
             self.stop_sign_detected = True  # Prevent multiple stop commands
 
 def main(args=None):

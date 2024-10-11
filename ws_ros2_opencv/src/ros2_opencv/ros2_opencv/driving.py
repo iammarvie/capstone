@@ -54,33 +54,13 @@ class DrivingNode(Node):
         self.get_logger().info('Set speed to initial speed.')
         self.destroy_timer(self.start_timer)  # Destroy the start timer
 
-    def adjust_speed_based_on_distance(self, msg):
-        distance_in_pixels = msg.data  # Distance from stop sign in pixels
-
-        # Logic to adjust speed based on the pixel distance from the stop sign
-        if distance_in_pixels < 50:  # Far from stop sign
-            speed = 0.15  # Keep moving at normal speed
-        elif 50 <= distance_in_pixels < 150:  # Closer to the stop sign
-            speed = 0.1  # Slow down
-        elif distance_in_pixels >= 150:  # Very close to the stop sign
-            speed = 0.0  # Stop the car
-            self.get_logger().info('Car stopped due to close proximity to the stop sign.')
-
-        # Set motor speed using the motor control function
-        self.motor_speed(speed)
-
     def twist_callback(self, msg):
-        stop_timer = time.time()
-        # Extract the linear.x from the Twist message (forward velocity)
-        linear_speed = msg.linear.x
-        print ("linear stop received")
-        # Translate this linear speed to motor speed
-        self.motor_speed(linear_speed)
-
-        if stop_timer - begin_timer > 50:
-            self.motor_speed(0)
-
-        self.get_logger().info(f'Twist command received: linear.x = {linear_speed:.2f}')
+        linear_x = msg.linear.x
+        if linear_x == 0:
+            self.motor_speed(0)  # Stop the car
+            self.get_logger().info('Car stopped.')
+        else:
+            self.motor_speed(linear_x)  # Adjust speed based on Twist command
 
 def main(args=None):
     rclpy.init(args=args)
