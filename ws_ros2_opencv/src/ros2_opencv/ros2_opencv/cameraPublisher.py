@@ -62,7 +62,7 @@ class PublisherNodeClass(Node):
 			self.publisher.publish(imageMessage)
 
 		# print the number of messages sent
-		self.get_logger().info('Image number %d sent' % self.i)
+		#self.get_logger().info('Image number %d sent' % self.i)
 		self.i += 1
 
 # the main function

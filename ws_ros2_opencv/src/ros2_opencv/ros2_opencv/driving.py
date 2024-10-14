@@ -22,9 +22,6 @@ class DrivingNode(Node):
         # Timer to wait 20 seconds before starting the car
         self.start_timer = self.create_timer(20.0, self.start_motor)
 
-        # Subscribe to the distance node (distance is in pixels)
-        self.subscription = self.create_subscription(Float32, 'stop_sign_detection', self.adjust_speed_based_on_distance, 1)
-
         # Subscribe to Twist commands
         self.twist_subscription = self.create_subscription(Twist, 'cmd_vel', self.twist_callback, 1)
 
@@ -56,11 +53,9 @@ class DrivingNode(Node):
 
     def twist_callback(self, msg):
         linear_x = msg.linear.x
-        if linear_x == 0:
+        if linear_x == 0.0:
             self.motor_speed(0)  # Stop the car
             self.get_logger().info('Car stopped.')
-        else:
-            self.motor_speed(linear_x)  # Adjust speed based on Twist command
 
 def main(args=None):
     rclpy.init(args=args)

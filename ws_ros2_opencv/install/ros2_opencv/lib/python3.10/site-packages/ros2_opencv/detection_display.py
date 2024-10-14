@@ -25,7 +25,7 @@ class ImageDisplayNode(Node):
 
     def listener_callback(self, msg):
         
-        self.get_logger().info('Received an image on detection_image')
+        #self.get_logger().info('Received an image on detection_image')
         # Convert ROS Image message to OpenCV image
         cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
         
