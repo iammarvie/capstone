@@ -33,4 +33,9 @@ def generate_launch_description():
             name='stop_sign_detection',
             output='screen'
         ),
+        Node(
+            package='ros2_opencv',
+            executable='lane_detection_node',
+            name='lane_detection',
+            output='screen'        ),
     ])

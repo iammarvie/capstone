@@ -8,11 +8,8 @@ class ImageDisplayNode(Node):
 
     def __init__(self):
         super().__init__('image_display_node')
-        self.subscription = self.create_subscription(
-            Image,
-            'detection_image',  # Topic to subscribe to
-            self.listener_callback,
-            1)
+        #self.subscription = self.create_subscription(Image,'detection_image', self.listener_callback,1)
+        self.subscription = self.create_subscription(Image, 'lane_image', self.listener_callback, 1)
         self.subscription  # Prevent unused variable warning
         self.bridge = CvBridge()
 
