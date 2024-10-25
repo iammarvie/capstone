@@ -135,11 +135,8 @@ class LaneDetectionNode(Node):
                 print(f"Turn left by {abs(angle):.2f} degrees")
             print(f'Offset: {offset}, Angle: {angle:.2f} degrees')
             # Display the predicted turn on the image
-            cv2.circle(image, lane_center, 5, (0, 0, 255), -1)  # Lane center
-            cv2.line(image, image_center, lane_center, (255, 0, 255), 2)  # Offset line
-        else:
-            print("No lines were detected.")
-
+            cv2.circle(cv_image, lane_center, 5, (0, 0, 255), -1)  # Lane center
+            cv2.line(cv_image, image_center, lane_center, (255, 0, 255), 2)  # Offset line
         # Create road information string
             road_info = f'{angle}'
         else:

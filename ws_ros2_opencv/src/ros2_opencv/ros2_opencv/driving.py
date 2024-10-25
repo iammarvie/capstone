@@ -2,11 +2,13 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist  # For controlling car's velocity
 from std_msgs.msg import Float32  # Distance in pixels
+from std_msgs.msg import String
 import math
 from board import SCL, SDA
 import busio
 from adafruit_pca9685 import PCA9685
 import time
+import adafruit_motor.servo
 
 class DrivingNode(Node):
 
@@ -35,6 +37,7 @@ class DrivingNode(Node):
         i2c_bus = busio.I2C(SCL, SDA)
         pca = PCA9685(i2c_bus)
         pca.frequency = 100
+        channel_num = 14
         return pca
 
     def motor_speed(self, percent):
