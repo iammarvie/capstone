@@ -20,26 +20,27 @@ class SteeringNode(Node):
         super().__init__('steering_node')
         self.bridge = CvBridge()
         self.subscription = self.create_subscription(String, 'lane_info', self.listener_callback, 1)
-        self.twist_publisher = self.create_publisher(Twist, 'cmd_steer', 1)  
+        self.twist_publisher = self.create_publisher(Twist, 'cmd_steer', 1) 
+
     def listener_callback(self, msg):
         lane_info = msg.data
         self.get_logger().info(f'lane_info: {lane_info}')
-        self.steer(lane_info)
 
-    def steer(self, lane_info):
-        # lane info is a string of the angle to turn by
         twist = Twist()
-        if abs(float(lane_info)) < 5:
-            twist.angular.z = 0.0
-            self.get_logger().info('Steering straight')
-        elif float(lane_info) > 5:
-            twist.angular.z = 0.1
-            self.get_logger().info('Steering right')
-        else:
-            twist.angular.z = -0.1
-            self.get_logger().info('Steering left')
+        twist.angular.z = self.steer(lane_info)
 
         self.twist_publisher.publish(twist)
-        self.get_logger().info(f'Published twist: {twist.angular.z}')
+        self.get_logger().info(f'Published: {twist.angular.z}')
+
+    def steer(self, lane_info):
+        if abs(lane_info) < 5:
+            self.get_logger().info('Steering straight')
+            return 0.0
+        elif lane_info > 5:
+            self.get_logger().info('Steering right')
+            return 0.1
+        else:
+            self.get_logger().info('Steering left')
+            return -0.1
         
     

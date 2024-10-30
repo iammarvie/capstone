@@ -44,7 +44,7 @@ class LaneDetectionNode(Node):
             self.get_logger().info(f'Error: {e}')
 
     def detect_lane(self, cv_image):
-        cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
+        #cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
         kernel = np.ones((3, 3), np.float32) / 9
         denoised_image = cv2.filter2D(cv_image, -1, kernel)
         height, width = cv_image.shape[:2]
