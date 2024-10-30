@@ -1,116 +1,144 @@
-import RPi.GPIO as GPIO  # Import GPIO library
-import time  # Import time library
+import rclpy
+from rclpy.node import Node
+import RPi.GPIO as GPIO
+import time
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)  # Programming the GPIO by BCM pin numbers
+class ObjectAvoidanceNode(Node):
 
-TRIG = 12  # Define TRIG pin
-ECHO = 11  # Define ECHO pin
+    def __init__(self):
+        super().__init__('object_avoidance_node')
 
-# Motor control pins
-m11 = ##
-m12 = ##
-m21 = ##
-m22 = ##
+        # Set up GPIO
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
 
-# Set up the GPIO pins
-GPIO.setup(TRIG, GPIO.OUT)  # Initialize TRIG as output
-GPIO.setup(ECHO, GPIO.IN)   # Initialize ECHO as input
+        # Define pins
+        self.TRIG = 12
+        self.ECHO = 11
+        self.m11 = 20  # Replace with your actual pin number
+        self.m12 = 21  # Replace with your actual pin number
+        self.m21 = 22  # Replace with your actual pin number
+        self.m22 = 23  # Replace with your actual pin number
 
-# Motor pin setup
-GPIO.setup(m11, GPIO.OUT)
-GPIO.setup(m12, GPIO.OUT)
-GPIO.setup(m21, GPIO.OUT)
-GPIO.setup(m22, GPIO.OUT)
+        # Initialize GPIO pins
+        GPIO.setup(self.TRIG, GPIO.OUT)
+        GPIO.setup(self.ECHO, GPIO.IN)
+        GPIO.setup(self.m11, GPIO.OUT)
+        GPIO.setup(self.m12, GPIO.OUT)
+        GPIO.setup(self.m21, GPIO.OUT)
+        GPIO.setup(self.m22, GPIO.OUT)
 
-time.sleep(5)  # Initial delay
+        # Stop the car initially
+        self.stop()
 
-# Define motor control functions
-def stop():
-    print("stop")
-    GPIO.output(m11, 0)
-    GPIO.output(m12, 0)
-    GPIO.output(m21, 0)
-    GPIO.output(m22, 0)
+        # Variable to keep track of avoidance logic
+        self.count = 0
 
-def forward():
-    GPIO.output(m11, 1)
-    GPIO.output(m12, 0)
-    GPIO.output(m21, 1)
-    GPIO.output(m22, 0)
-    print("Forward")
+        # Timer to run the obstacle avoidance logic every 0.5 seconds
+        self.timer = self.create_timer(0.5, self.obstacle_avoidance_callback)
+        self.get_logger().info('Object avoidance node has been initialized')
 
-def back():
-    GPIO.output(m11, 0)
-    GPIO.output(m12, 1)
-    GPIO.output(m21, 0)
-    GPIO.output(m22, 1)
-    print("back")
+    def obstacle_avoidance_callback(self):
+        avg_distance = self.calculate_average_distance()
 
-def left():
-    GPIO.output(m11, 0)
-    GPIO.output(m12, 0)
-    GPIO.output(m21, 1)
-    GPIO.output(m22, 0)
-    print("left")
+        self.get_logger().info(f'Average Distance: {avg_distance} cm')
 
-def right():
-    GPIO.output(m11, 1)
-    GPIO.output(m12, 0)
-    GPIO.output(m21, 0)
-    GPIO.output(m22, 0)
-    print("right")
+        # Obstacle avoidance logic
+        if avg_distance < 15:
+            self.count += 1
+            self.stop()
+            time.sleep(1)
+            self.back()
+            time.sleep(1.5)
 
-# Stop the car initially
-stop()
+            if self.count % 3 == 1:
+                self.right()
+            else:
+                self.left()
 
-# Main loop
-count = 0
-while True:
-    avgDistance = 0
-    for i in range(5):  # Take 5 readings to calculate the average distance
-        GPIO.output(TRIG, False)  # Set TRIG to LOW
-        time.sleep(0.1)
-
-        GPIO.output(TRIG, True)  # Set TRIG to HIGH
-        time.sleep(0.00001)  # 10µs pulse
-        GPIO.output(TRIG, False)  # Set TRIG to LOW
-
-        # Wait for the echo to start and end
-        while GPIO.input(ECHO) == 0:
-            pass  # Wait for ECHO to go HIGH (start pulse)
-
-        pulse_start = time.time()
-
-        while GPIO.input(ECHO) == 1:
-            pass  # Wait for ECHO to go LOW (end pulse)
-
-        pulse_end = time.time()
-
-        # Calculate distance
-        pulse_duration = pulse_end - pulse_start
-        distance = pulse_duration * 17150  # Convert time to distance in cm
-        distance = round(distance, 2)
-        avgDistance += distance
-
-    avgDistance = avgDistance / 5  # Average distance from 5 readings
-    print(avgDistance)
-
-    # Obstacle avoidance logic
-    if avgDistance < 15:  # If obstacle is within 15 cm
-        count += 1
-        stop()
-        time.sleep(1)
-        back()  # Reverse
-        time.sleep(1.5)
-
-        if count % 3 == 1:
-            right()  # Turn right
+            time.sleep(1.5)
+            self.stop()
+            time.sleep(1)
         else:
-            left()  # Turn left
+            self.forward()
 
-        time.sleep(1.5)
-        stop()
-        time.sleep(1)
-    else:
-        forward()  # Move forward
+    def calculate_average_distance(self):
+        avg_distance = 0
+        for _ in range(5):  # Take 5 readings
+            GPIO.output(self.TRIG, False)
+            time.sleep(0.1)
+
+            GPIO.output(self.TRIG, True)
+            time.sleep(0.00001)
+            GPIO.output(self.TRIG, False)
+
+            while GPIO.input(self.ECHO) == 0:
+                pass  # Wait for ECHO to go HIGH
+
+            pulse_start = time.time()
+
+            while GPIO.input(self.ECHO) == 1:
+                pass  # Wait for ECHO to go LOW
+
+            pulse_end = time.time()
+
+            pulse_duration = pulse_end - pulse_start
+            distance = pulse_duration * 17150
+            avg_distance += round(distance, 2)
+
+        return avg_distance / 5  # Average of 5 readings
+
+    # Motor control functions
+    def stop(self):
+        self.get_logger().info('Stopping')
+        GPIO.output(self.m11, 0)
+        GPIO.output(self.m12, 0)
+        GPIO.output(self.m21, 0)
+        GPIO.output(self.m22, 0)
+
+    def forward(self):
+        self.get_logger().info('Moving Forward')
+        GPIO.output(self.m11, 1)
+        GPIO.output(self.m12, 0)
+        GPIO.output(self.m21, 1)
+        GPIO.output(self.m22, 0)
+
+    def back(self):
+        self.get_logger().info('Reversing')
+        GPIO.output(self.m11, 0)
+        GPIO.output(self.m12, 1)
+        GPIO.output(self.m21, 0)
+        GPIO.output(self.m22, 1)
+
+    def left(self):
+        self.get_logger().info('Turning Left')
+        GPIO.output(self.m11, 0)
+        GPIO.output(self.m12, 0)
+        GPIO.output(self.m21, 1)
+        GPIO.output(self.m22, 0)
+
+    def right(self):
+        self.get_logger().info('Turning Right')
+        GPIO.output(self.m11, 1)
+        GPIO.output(self.m12, 0)
+        GPIO.output(self.m21, 0)
+        GPIO.output(self.m22, 0)
+
+    def destroy_node(self):
+        # Cleanup GPIO on node shutdown
+        GPIO.cleanup()
+        super().destroy_node()
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = ObjectAvoidanceNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
