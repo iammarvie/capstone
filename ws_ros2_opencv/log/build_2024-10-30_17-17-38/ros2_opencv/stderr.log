@@ -1,0 +1,5 @@
+  File "/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/detection_display.py", line 25
+    self.video_writer = cv2.VideoWriter(
+                                       ^
+SyntaxError: '(' was never closed
+

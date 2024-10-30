@@ -19,6 +19,7 @@ ros2_opencv/object_detection.py
 ros2_opencv/object_detection_ssd_lite.py
 ros2_opencv/object_detection_yolo.py
 ros2_opencv/road_detect.py
+ros2_opencv/steer.py
 ros2_opencv/subscriberimage.py
 test/test_copyright.py
 test/test_flake8.py
