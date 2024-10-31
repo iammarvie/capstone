@@ -2,19 +2,16 @@ import rclpy
 from rclpy.node import Node
 import RPi.GPIO as GPIO
 import time
+from std_msgs.msg import String
+from geometry_msgs.msg import Twist  # For controlling car's velocity
+
 
 class ObstacleAvoidanceNode(Node):
     def __init__(self):
         super().__init__('obstacle_avoidance')
-        
-        # Define GPIO for PWM motor channels
-        GPIO.setmode(GPIO.BOARD)
-        self.motor_pwm_pin = 14   # PWM pin for motor control (adjust based on your setup)
-        GPIO.setup(self.motor_pwm_pin, GPIO.OUT)
 
-        # Set up PWM on motor control pin at 100 Hz
-        self.pwm_motor = GPIO.PWM(self.motor_pwm_pin, 100)
-        self.pwm_motor.start(0)  # Start with 0% duty cycle (motor off)
+        # Set up publisher and subscriber
+        self.publisher_road = self.create_publisher(Twist, 'distance', 1)
 
         # Define GPIO for central ultrasonic sensor
         self.GPIO_TRIGGER_CENTRAL = 12
@@ -27,34 +24,16 @@ class ObstacleAvoidanceNode(Node):
 
         self.get_logger().info("Obstacle avoidance node with PWM motor control started")
 
-    # Functions for driving
-    def go_forward(self, speed=50):
-        """Move forward with specified speed as a percentage (0-100)."""
-        self.pwm_motor.ChangeDutyCycle(speed)
-        self.get_logger().info("Moving forward")
+    def listener_callback(self, msg):
+        self.get_logger().info(f"Received: {msg.data}")
+        try:
+            detected = self.front_obstacle()
+            self.get_logger().info(f"Detected: {detected}")
+            self.publisher_road.publish(detected)
+        except Exception as e:
+            self.get_logger().info(f"Error: {e}")
 
-    def turn_left(self, speed=50):
-        """Turn left with specified speed."""
-        self.pwm_motor.ChangeDutyCycle(speed)
-        time.sleep(0.8)
-        self.pwm_motor.ChangeDutyCycle(0)  # Stop motor
-
-    def turn_right(self, speed=50):
-        """Turn right with specified speed."""
-        self.pwm_motor.ChangeDutyCycle(speed)
-        time.sleep(0.8)
-        self.pwm_motor.ChangeDutyCycle(0)  # Stop motor
-
-    def go_backward(self, speed=50):
-        """Move backward with specified speed."""
-        self.pwm_motor.ChangeDutyCycle(speed)
-        self.get_logger().info("Moving backward")
-
-    def stop_motors(self):
-        """Stop all motor movement."""
-        self.pwm_motor.ChangeDutyCycle(0)
-        self.get_logger().info("Motors stopped")
-
+    # Functions for driving the car
     # Detect front obstacle
     def front_obstacle(self):
         GPIO.output(self.GPIO_TRIGGER_CENTRAL, False)
@@ -71,30 +50,9 @@ class ObstacleAvoidanceNode(Node):
         
         elapsed = stop - start
         distance = elapsed * 34000 / 2  # Distance in cm
-        
+
         self.get_logger().info(f"Front Distance : {distance:.1f} cm")
         return distance
-
-    # Check front obstacle and turn right if there is an obstacle
-    def check_and_drive_front(self):
-        while self.front_obstacle() < 30:
-            self.stop_motors()
-            self.turn_right()
-        self.go_forward()
-
-    # Avoid obstacles and drive forward
-    def obstacle_avoid_drive(self):
-        self.go_forward()
-        if self.front_obstacle() < 30:
-            self.stop_motors()
-            self.check_and_drive_front()
-
-    def clear_gpios(self):
-        self.get_logger().info("Clearing GPIOs and stopping motors")
-        self.pwm_motor.stop()
-        GPIO.output(self.GPIO_TRIGGER_CENTRAL, False)
-        GPIO.cleanup()
-        self.get_logger().info("All GPIOs cleared")
 
     def destroy_node(self):
         self.clear_gpios()
