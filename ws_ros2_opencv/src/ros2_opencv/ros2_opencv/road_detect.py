@@ -58,8 +58,8 @@ class LaneDetectionNode(Node):
         '''
         bleft = (int(width * 0), int(height*0.85))  # Bottom-left
         bright = (int(width), int(height*0.85))# Bottom-right]
-        tleft = (int(width * 0.15), int(height * 0.5))  # Top-left
-        tright = (int(width * 0.85), int(height * 0.5))  # Top-right
+        tleft = (int(width * 0.15), int(height * 0.7))  # Top-left
+        tright = (int(width * 0.85), int(height * 0.7))  # Top-right
 
         # Define region of interest
         region_of_interest_coor = [ bleft, tleft, tright,bright ]
