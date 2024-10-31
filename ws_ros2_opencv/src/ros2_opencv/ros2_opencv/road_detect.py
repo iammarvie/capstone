@@ -50,16 +50,11 @@ class LaneDetectionNode(Node):
         height, width = cv_image.shape[:2]
         gray_image = cv2.cvtColor(denoised_image, cv2.COLOR_BGR2GRAY)
         cannied_image = cv2.Canny(gray_image, 100, 200)
-        '''
+
         bleft = (int(width * 0), int(height*0.85))  # Bottom-left
         bright = (int(width), int(height*0.85))# Bottom-right]
         tleft = (int(width * 0.25), int(height * 0.6))  # Top-left
         tright = (int(width * 0.75), int(height * 0.6))  # Top-right
-        '''
-        bleft = (int(width * 0), int(height*0.85))  # Bottom-left
-        bright = (int(width), int(height*0.85))# Bottom-right]
-        tleft = (int(width * 0.15), int(height * 0.7))  # Top-left
-        tright = (int(width * 0.85), int(height * 0.7))  # Top-right
 
         # Define region of interest
         region_of_interest_coor = [ bleft, tleft, tright,bright ]
@@ -131,6 +126,13 @@ class LaneDetectionNode(Node):
 
             # Predict the turn angle (in degrees) using arctangent
             angle = np.arctan2(offset, height) * (180.0 / np.pi)
+                # Print turn prediction based on angle threshold
+            if abs(angle) < 5:
+                print("Keep straight")
+            elif angle > 5:
+                print(f"Turn right by {angle:.2f} degrees")
+            else:
+                print(f"Turn left by {abs(angle):.2f} degrees")
             print(f'Offset: {offset}, Angle: {angle:.2f} degrees')
             # Display the predicted turn on the image
             cv2.circle(cv_image, lane_center, 5, (0, 0, 255), -1)  # Lane center
