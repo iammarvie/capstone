@@ -38,9 +38,9 @@ class SteeringNode(Node):
             return 0.0
         elif lane_info > 2:
             self.get_logger().info('Steering right')
-            return 0.8
+            return 0.5
         else:
             self.get_logger().info('Steering left')
-            return -0.8
+            return -0.5
         
     

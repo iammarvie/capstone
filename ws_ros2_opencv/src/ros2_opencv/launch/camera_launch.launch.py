@@ -40,6 +40,11 @@ def generate_launch_description():
             output='screen'        ),
         Node(
             package='ros2_opencv',
+            executable='steering_node',
+            name='steering',
+            output='screen'        ),
+        Node(
+            package='ros2_opencv',
             executable='obstacle_avoidance',
             name='ultrasonic',
             output='screen'        ),
