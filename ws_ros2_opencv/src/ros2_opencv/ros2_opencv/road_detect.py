@@ -111,6 +111,7 @@ class LaneDetectionNode(Node):
 
         angle = calculate_steering_angle(left_line, right_line, width, height)
         road_info = f'{angle}' if angle is not None else '0'
+        self.get_logger().info(f'Angle: {angle}')
 
         return cv_image, road_info
     
