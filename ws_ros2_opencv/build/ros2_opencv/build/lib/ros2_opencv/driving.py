@@ -20,7 +20,7 @@ class DrivingNode(Node):
         self.pca = self.servo_motor_initialization()
         self.get_logger().info('Servo motor initialized.')
 
-        self.get_logger().info('Waiting 20 seconds to begin moving.')
+        self.get_logger().info('Waiting 10 seconds to begin moving.')
 
         # Timer to wait 20 seconds before starting the car
         self.start_timer = self.create_timer(10.0, self.start_motor)
@@ -28,6 +28,7 @@ class DrivingNode(Node):
         # Subscribe to Twist commands
         self.twist_subscription = self.create_subscription(Twist, 'cmd_vel', self.stop_callback, 1)
         self.twist_subscription_steer = self.create_subscription(Twist, 'cmd_steer', self.steer_callback, 1)
+        self.twist_subscription_ultra = self.create_subscription(Float32, 'distance', self.obstacle_avoid_drive, 1)
 
         # Initial motor speed
         self.initial_speed = 0.15
@@ -79,6 +80,14 @@ class DrivingNode(Node):
         servo_angle = max(0, min(180, servo_angle))
         self.servo_steer.angle = servo_angle
         self.get_logger().info(f'Steering angle set to {servo_angle}.')
+
+    ## ULTRASONIC AVOIDANCE
+
+    def obstacle_avoid_drive(self, msg):
+        distance = msg.data
+        if distance < 50:
+            self.motor_speed(0)
+            self.get_logger().info('Obstacle detected. Stopping the car.')    
 
 def main(args=None):
     rclpy.init(args=args)

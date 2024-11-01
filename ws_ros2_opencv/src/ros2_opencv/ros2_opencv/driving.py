@@ -85,11 +85,9 @@ class DrivingNode(Node):
 
     def obstacle_avoid_drive(self, msg):
         distance = msg.data
-        if distance < 30:
+        if distance < 50:
             self.motor_speed(0)
-            self.get_logger().info('Obstacle detected. Stopping the car.')
-            self.turn_right()
-    
+            self.get_logger().info('Obstacle detected. Stopping the car.')    
 
 def main(args=None):
     rclpy.init(args=args)

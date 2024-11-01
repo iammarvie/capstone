@@ -18,10 +18,15 @@ class LaneDetectionNode(Node):
         self.publisher_road = self.create_publisher(String, 'lane_info', 1)
         self.publisher_image = self.create_publisher(Image, 'lane_image', 1)
 
+        self.min_line_length = 40
+        self.max_line_gap = 150
+        self.canny_threshold1 = 100
+        self.canny_threshold2 = 200
+
     def listener_callback(self, msg):
         start_time = time.perf_counter()
         try:
-            self.get_logger().info('Received an image on image_raw')
+            #self.get_logger().info('Received an image on image_raw')
 
             cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
 
@@ -33,11 +38,6 @@ class LaneDetectionNode(Node):
             road_info_msg = String()
             road_info_msg.data = road_info
             self.publisher_road.publish(road_info_msg)
-
-            self.min_line_length = 40
-            self.max_line_gap = 150
-            self.canny_threshold1 = 100
-            self.canny_threshold2 = 200
 
         except CvBridgeError as e:
             self.get_logger().info(f'CvBridge Error: {e}')
