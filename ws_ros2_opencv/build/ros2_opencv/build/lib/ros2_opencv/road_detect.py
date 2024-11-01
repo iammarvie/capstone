@@ -3,6 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
 from cv_bridge import CvBridge, CvBridgeError
+from std_msgs.msg import Float32  # Distance in pixels
 import cv2
 import numpy as np
 import time
@@ -15,7 +16,7 @@ class LaneDetectionNode(Node):
             Image,
             'image_raw',
             self.listener_callback, 1)
-        self.publisher_road = self.create_publisher(String, 'lane_info', 1)
+        self.publisher_road = self.create_publisher(Float32, 'lane_info', 1)
         self.publisher_image = self.create_publisher(Image, 'lane_image', 1)
 
         self.min_line_length = 40
@@ -35,7 +36,7 @@ class LaneDetectionNode(Node):
             processed_image_msg = self.bridge.cv2_to_imgmsg(processed_image, 'bgr8')
             self.publisher_image.publish(processed_image_msg)
 
-            road_info_msg = String()
+            road_info_msg = Float32()
             road_info_msg.data = road_info
             self.publisher_road.publish(road_info_msg)
 
@@ -77,7 +78,7 @@ class LaneDetectionNode(Node):
         def calculate_steering_angle(left_line, right_line, width, height):
 
             if left_line is None or right_line is None:
-                return None
+                return 0.0
             
             lane_center = (
                 (left_line[0][2] + right_line[0][2]) // 2,
@@ -87,7 +88,7 @@ class LaneDetectionNode(Node):
             
             offset = lane_center[0] - image_center[0]
             angle = np.arctan2(offset, height) * (180.0 / np.pi)
-            return angle
+            return float(angle)
         
         processed_image = preprocess_image(cv_image)
 
@@ -110,10 +111,11 @@ class LaneDetectionNode(Node):
             cv_image = cv2.line(cv_image, (right_line[0][0], right_line[0][1]), (right_line[0][2], right_line[0][3]), (0, 255, 0), 3)
 
         angle = calculate_steering_angle(left_line, right_line, width, height)
-        road_info = f'{angle}' if angle is not None else '0'
+        road_info = Float32()
+        road_info.data = float(angle)
         self.get_logger().info(f'Angle: {angle}')
 
-        return cv_image, road_info
+        return cv_image, road_info.data
     
 def main(args=None):
 

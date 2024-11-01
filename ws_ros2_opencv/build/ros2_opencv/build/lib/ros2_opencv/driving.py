@@ -82,7 +82,6 @@ class DrivingNode(Node):
         self.get_logger().info(f'Steering angle set to {servo_angle}.')
 
     ## ULTRASONIC AVOIDANCE
-
     def obstacle_avoid_drive(self, msg):
         distance = msg.data
         if distance < 50:
