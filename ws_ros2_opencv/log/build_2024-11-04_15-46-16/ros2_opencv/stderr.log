@@ -1,0 +1,5 @@
+  File "/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/steer.py", line 48
+    elif lane_info > 2:
+    ^^^^
+SyntaxError: invalid syntax
+

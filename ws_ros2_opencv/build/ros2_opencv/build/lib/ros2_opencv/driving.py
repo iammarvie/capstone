@@ -83,7 +83,7 @@ class DrivingNode(Node):
     ## ULTRASONIC AVOIDANCE
     def obstacle_avoid_drive(self, msg):
         distance = msg.data
-        if distance < 50:
+        if distance < 5:
             self.motor_speed(0)
             self.get_logger().info('Obstacle detected. Stopping the car.')    
 
