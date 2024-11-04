@@ -48,16 +48,21 @@ class LaneDetectionNode(Node):
     def detect_lane(self, cv_image):
 
         def preprocess_image(cv_image):
-            gray_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+            image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
+            kernel = np.ones((3, 3), np.float32) / 9
+            denoised_image = cv2.filter2D(image, -1, kernel)
+            gray_image = cv2.cvtColor(denoised_image, cv2.COLOR_BGR2GRAY)
+            cv2.imwrite('gray.jpg', gray_image)
             equalized_image = cv2.equalizeHist(gray_image)
             blur_image = cv2.GaussianBlur(equalized_image, (5, 5), 0)
             cannied_image = cv2.Canny(blur_image, self.canny_threshold1, self.canny_threshold2)
+            cv2.imwrite('canny.jpg', cannied_image)
             return cannied_image
         
         def get_region_of_interest_coordinates(width, height):
             bleft = (int(width * 0), int(height*0.85))
-            tleft = (int(width * 0.15), int(height * 0.6))
-            tright = (int(width * 0.85), int(height * 0.6))
+            tleft = (int(width * 0.15), int(height * 0.7))
+            tright = (int(width * 0.85), int(height * 0.7))
             bright = (int(width), int (height*0.85))
             return [
                 bleft, tleft, tright, bright
@@ -113,8 +118,6 @@ class LaneDetectionNode(Node):
         angle = calculate_steering_angle(left_line, right_line, width, height)
         road_info = Float32()
         road_info.data = float(angle)
-        self.get_logger().info(f'Angle: {angle}')
-
         return cv_image, road_info.data
     
 def main(args=None):

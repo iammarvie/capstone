@@ -25,13 +25,13 @@ class SteeringNode(Node):
 
     def listener_callback(self, msg):
         lane_info = msg.data
-        self.get_logger().info(f'lane_info: {lane_info}')
+        #self.get_logger().info(f'lane_info: {lane_info}')
 
         twist = Twist()
         twist.angular.z = self.steer(lane_info)
 
         self.twist_publisher.publish(twist)
-        self.get_logger().info(f'Published: {twist.angular.z}')
+        #self.get_logger().info(f'Published: {twist.angular.z}')
 
     def steer(self, lane_info):
         if abs(lane_info) < 2:
@@ -39,10 +39,10 @@ class SteeringNode(Node):
             return 0.0
         elif lane_info > 2:
             self.get_logger().info('Steering right')
-            return -0.35
+            return -0.20
         else:
             self.get_logger().info('Steering left')
-            return 0.35
+            return 0.20
 
 def main(args=None):
 

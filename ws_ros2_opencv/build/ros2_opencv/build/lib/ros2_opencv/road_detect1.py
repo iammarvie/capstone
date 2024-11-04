@@ -138,6 +138,9 @@ class LaneDetectionNode(Node):
             # Display the predicted turn on the image
             cv2.circle(cv_image, lane_center, 5, (0, 0, 255), -1)  # Lane center
             cv2.line(cv_image, image_center, lane_center, (255, 0, 255), 2)  # Offset line
+
+            # Display angle information on image
+            cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
         # Create road information string
             road_info = f'{angle}'
         else:
