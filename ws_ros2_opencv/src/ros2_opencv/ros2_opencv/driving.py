@@ -20,6 +20,7 @@ class DrivingNode(Node):
         self.pca = self.servo_motor_initialization()
         self.get_logger().info('Servo motor initialized.')
 
+        self.start_timing = time.time()
         self.get_logger().info('Waiting 10 seconds to begin moving.')
 
         # Timer to wait 20 seconds before starting the car
@@ -72,6 +73,9 @@ class DrivingNode(Node):
 
     # Steer servo based on angular z value
     def steer_callback(self, msg):
+        if  time.time() - self.start_timing < 7:
+            self.get_logger().info('waiting...')
+            return
         # convert angle for servo to use
         angular_z = msg.angular.z
         # convert angle so the servo can use it

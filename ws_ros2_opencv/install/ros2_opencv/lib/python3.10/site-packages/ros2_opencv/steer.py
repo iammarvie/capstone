@@ -39,12 +39,12 @@ class SteeringNode(Node):
             return 0.0
         elif lane_info > 2:
         # Steering right with a dynamic equation that increases as lane_info grows
-            steer_value = max(-1.0, -0.2 * (lane_info / 90))  # Scale based on lane_info, maxing at -1
+            steer_value = max(-1.0, -1.9 * (lane_info / 90))  # Scale based on lane_info, maxing at -1
             self.get_logger().info(f'Steering right with angular.z: {steer_value}')
             return steer_value
         else:
         # Steering left with a dynamic equation that increases as lane_info grows
-            steer_value = min(1.0, 0.2 * (abs(lane_info) / 90))  # Scale based on lane_info, maxing at 1
+            steer_value = min(1.0, 1.9 * (abs(lane_info) / 90))  # Scale based on lane_info, maxing at 1
             self.get_logger().info(f'Steering left with angular.z: {steer_value}')
             return steer_value 
 

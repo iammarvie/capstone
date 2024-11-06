@@ -120,6 +120,7 @@ class LaneDetectionNode(Node):
         cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
         road_info = Float32()
         road_info.data = float(angle)
+        self.get_logger().info(f'Steering angle is to {angle:.2f}.')
         return cv_image, road_info.data
     
 def main(args=None):
