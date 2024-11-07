@@ -21,8 +21,8 @@ class LaneDetectionNode(Node):
 
         self.min_line_length = 40
         self.max_line_gap = 150
-        self.canny_threshold1 = 100
-        self.canny_threshold2 = 200
+        self.canny_threshold1 = 70
+        self.canny_threshold2 = 100
 
     def listener_callback(self, msg):
         start_time = time.perf_counter()
@@ -60,10 +60,10 @@ class LaneDetectionNode(Node):
             return cannied_image
         
         def get_region_of_interest_coordinates(width, height):
-            bleft = (int(width * 0), int(height*0.85))
-            tleft = (int(width * 0.15), int(height * 0.7))
-            tright = (int(width * 0.85), int(height * 0.7))
-            bright = (int(width), int (height*0.85))
+            bleft = (int(width * 0), int(height*0.92))  # Bottom-left
+            bright = (int(width), int(height*0.92))# Bottom-right]
+            tleft = (int(width * 0.15), int(height * 0.8))  # Top-left
+            tright = (int(width * 0.85), int(height * 0.8))  # Top-right
             return [
                 bleft, tleft, tright, bright
             ]
