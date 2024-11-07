@@ -19,7 +19,7 @@ class LaneDetectionNode(Node):
         self.publisher_road = self.create_publisher(Float32, 'lane_info', 1)
         self.publisher_image = self.create_publisher(Image, 'lane_image', 1)
 
-        self.min_line_length = 40
+        self.min_line_length = 20
         self.max_line_gap = 150
         self.canny_threshold1 = 70
         self.canny_threshold2 = 100
@@ -101,6 +101,10 @@ class LaneDetectionNode(Node):
         region_of_interest_coor = get_region_of_interest_coordinates(width, height)
         mask = np.zeros_like(processed_image)
         cv2.fillPoly(mask, [np.array(region_of_interest_coor)], 255)
+        center_mask = [(int(0.25*width),int(height*0.92)), (int(0.25*width), int(0.8*height)),
+        (int(0.75*width), int(0.8*height)), (int(0.75*width), int(height*0.92))
+        ]
+        cv2.fillPoly(mask, [np.array(center_mask)],0)
         cropped_image = cv2.bitwise_and(processed_image, mask)
 
         lines = cv2.HoughLinesP(cropped_image, 1, np.pi / 180, 20, np.array([]), minLineLength=self.min_line_length, maxLineGap=self.max_line_gap)
@@ -118,6 +122,9 @@ class LaneDetectionNode(Node):
         angle = calculate_steering_angle(left_line, right_line, width, height)
         # Display angle information on image
         cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+        # Add polygon to ouptut image
+        cv2.polylines(cv_image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
+
         road_info = Float32()
         road_info.data = float(angle)
         self.get_logger().info(f'Steering angle is to {angle:.2f}.')
