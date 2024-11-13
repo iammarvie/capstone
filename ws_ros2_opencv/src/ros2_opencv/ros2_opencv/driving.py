@@ -37,6 +37,12 @@ class DrivingNode(Node):
         self.servo_steer.angle = 90
         self.get_logger().info('Servo steer initialized and set to 90(straight).')
 
+        self.lr = self.lr()
+        self.lr.angle = 99
+
+        self.up_down = self.up_down()
+        self.up_down.angle = 105
+
         begin_timer = time.time()
 
     def servo_motor_initialization(self):
@@ -66,6 +72,14 @@ class DrivingNode(Node):
             self.motor_speed(0)  # Stop the car
             self.get_logger().info('Car stopped.')
 
+    def up_down(self):
+        self.up_down = servo.Servo(self.pca.channels[1])
+        return self.up_down
+
+    def lr(self):
+        self.lr = servo.Servo(self.pca.channels[0])
+        return self.lr
+
     def steer_servo_initialization(self):
         # set servo to initial direction
         self.servo_steer = servo.Servo(self.pca.channels[14], min_pulse=600, max_pulse=2400)
@@ -74,7 +88,7 @@ class DrivingNode(Node):
     # Steer servo based on angular z value
     def steer_callback(self, msg):
         if  time.time() - self.start_timing < 7:
-            self.get_logger().info('waiting...')
+            #self.get_logger().info('waiting...')
             return
         # convert angle for servo to use
         angular_z = msg.angular.z

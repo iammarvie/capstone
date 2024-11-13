@@ -35,7 +35,7 @@ class SteeringNode(Node):
 
     def steer(self, lane_info):
         if abs(lane_info) < 2:
-            self.get_logger().info('Steering straight')
+            #self.get_logger().info('Steering straight')
             return 0.0
         elif lane_info > 2:
         # Steering right with a dynamic equation that increases as lane_info grows

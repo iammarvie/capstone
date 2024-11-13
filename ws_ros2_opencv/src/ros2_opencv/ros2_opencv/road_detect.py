@@ -60,10 +60,12 @@ class LaneDetectionNode(Node):
             return cannied_image
         
         def get_region_of_interest_coordinates(width, height):
-            bleft = (int(width * 0), int(height*0.92))  # Bottom-left
-            bright = (int(width), int(height*0.92))# Bottom-right]
-            tleft = (int(width * 0.15), int(height * 0.8))  # Top-left
-            tright = (int(width * 0.85), int(height * 0.8))  # Top-right
+            hpush_b = 0.90
+            hpush_t = 0.75
+            bleft = (int(width * 0), int(height*hpush_b))  # Bottom-left
+            bright = (int(width), int(height*hpush_b))# Bottom-right]
+            tleft = (int(width * 0.20), int(height * hpush_t))  # Top-left
+            tright = (int(width * 0.80), int(height * hpush_t))  # Top-right
             return [
                 bleft, tleft, tright, bright
             ]
@@ -101,12 +103,15 @@ class LaneDetectionNode(Node):
         region_of_interest_coor = get_region_of_interest_coordinates(width, height)
         mask = np.zeros_like(processed_image)
         cv2.fillPoly(mask, [np.array(region_of_interest_coor)], 255)
-        center_mask = [(int(0.25*width),int(height*0.92)), (int(0.25*width), int(0.8*height)),
-        (int(0.75*width), int(0.8*height)), (int(0.75*width), int(height*0.92))
+        center_mask = [
+            (int(0.5 * width), int(0.5 * height)),  # Top-left
+            (int(0.18 * width), int(0.90 * height)),  # Bottom-left
+            (int(0.82 * width), int(0.90 * height)),  # Bottom-right
+            (int(0.5 * width), int(0.5 * height))   # Top-right
         ]
-        cv2.fillPoly(mask, [np.array(center_mask)],0)
         cropped_image = cv2.bitwise_and(processed_image, mask)
-
+        cv2.fillPoly(cropped_image, [np.array(center_mask)],0)
+        cv2.imwrite('pon.jpg', cropped_image)
         lines = cv2.HoughLinesP(cropped_image, 1, np.pi / 180, 20, np.array([]), minLineLength=self.min_line_length, maxLineGap=self.max_line_gap)
 
         left_lines, right_lines = classify_lines(lines) if lines is not None else ([], [])
@@ -124,10 +129,11 @@ class LaneDetectionNode(Node):
         cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
         # Add polygon to ouptut image
         cv2.polylines(cv_image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
+        cv2.polylines(cv_image, [np.array(center_mask)], True, (0, 255, 180), 2)
 
         road_info = Float32()
         road_info.data = float(angle)
-        self.get_logger().info(f'Steering angle is to {angle:.2f}.')
+        #self.get_logger().info(f'Steering angle is to {angle:.2f}.')
         return cv_image, road_info.data
     
 def main(args=None):
