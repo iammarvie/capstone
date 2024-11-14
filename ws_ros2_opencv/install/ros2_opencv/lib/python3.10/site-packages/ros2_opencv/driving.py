@@ -38,7 +38,7 @@ class DrivingNode(Node):
         self.get_logger().info('Servo steer initialized and set to 90(straight).')
 
         self.lr = self.lr()
-        self.lr.angle = 99
+        self.lr.angle = 98
 
         self.up_down = self.up_down()
         self.up_down.angle = 105

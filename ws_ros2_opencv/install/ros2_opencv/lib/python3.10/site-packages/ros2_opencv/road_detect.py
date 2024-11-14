@@ -7,6 +7,7 @@ from std_msgs.msg import Float32  # Distance in pixels
 import cv2
 import numpy as np
 import time
+import math
 
 class LaneDetectionNode(Node):
     def __init__(self):
@@ -21,8 +22,8 @@ class LaneDetectionNode(Node):
 
         self.min_line_length = 20
         self.max_line_gap = 150
-        self.canny_threshold1 = 70
-        self.canny_threshold2 = 100
+        self.canny_threshold1 = 30
+        self.canny_threshold2 = 70
 
     def listener_callback(self, msg):
         start_time = time.perf_counter()
@@ -47,94 +48,121 @@ class LaneDetectionNode(Node):
 
     def detect_lane(self, cv_image):
 
-        def preprocess_image(cv_image):
-            image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
-            kernel = np.ones((3, 3), np.float32) / 9
-            denoised_image = cv2.filter2D(image, -1, kernel)
-            gray_image = cv2.cvtColor(denoised_image, cv2.COLOR_BGR2GRAY)
-            cv2.imwrite('gray.jpg', gray_image)
-            equalized_image = cv2.equalizeHist(gray_image)
-            blur_image = cv2.GaussianBlur(equalized_image, (5, 5), 0)
-            cannied_image = cv2.Canny(blur_image, self.canny_threshold1, self.canny_threshold2)
-            cv2.imwrite('canny.jpg', cannied_image)
-            return cannied_image
-        
+        # Preprocess the image
+        image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
+        kernel = np.ones((3, 3), np.float32) / 9
+        denoised_image = cv2.filter2D(image, -1, kernel)
+        gray_image = cv2.cvtColor(denoised_image, cv2.COLOR_BGR2GRAY)
+        cv2.imwrite('gray.jpg', gray_image)
+        equalized_image = cv2.equalizeHist(gray_image)
+        blur_image = cv2.GaussianBlur(equalized_image, (5, 5), 0)
+        cannied_image = cv2.Canny(blur_image, self.canny_threshold1, self.canny_threshold2)
+        cv2.imwrite('canny.jpg', cannied_image)
+
+        height, width = cv_image.shape[:2]
+
+        # Define the region of interest
         def get_region_of_interest_coordinates(width, height):
             hpush_b = 0.90
             hpush_t = 0.75
-            bleft = (int(width * 0), int(height*hpush_b))  # Bottom-left
-            bright = (int(width), int(height*hpush_b))# Bottom-right]
+            bleft = (int(width * 0), int(height * hpush_b))  # Bottom-left
+            bright = (int(width), int(height * hpush_b))  # Bottom-right
             tleft = (int(width * 0.20), int(height * hpush_t))  # Top-left
             tright = (int(width * 0.80), int(height * hpush_t))  # Top-right
-            return [
-                bleft, tleft, tright, bright
-            ]
-        
-        def classify_lines(lines):
-            left_lines, right_lines = [], []
+            return [bleft, tleft, tright, bright]
+
+        region_of_interest_coor = get_region_of_interest_coordinates(width, height)
+        mask = np.zeros_like(cannied_image)
+        cv2.fillPoly(mask, [np.array(region_of_interest_coor)], 255)
+
+        # Define and apply the center mask
+        center_mask = [
+            (int(0.5 * width), int(0.5 * height)),  # Top-left
+            (int(0.25 * width), int(0.90 * height)),  # Bottom-left
+            (int(0.75 * width), int(0.90 * height)),  # Bottom-right
+            (int(0.5 * width), int(0.5 * height))  # Top-right
+        ]
+        cropped_image = cv2.bitwise_and(cannied_image, mask)
+        cv2.fillPoly(cropped_image, [np.array(center_mask)], 0)
+
+        # Detect lines using Hough Transform
+        lines = cv2.HoughLinesP(
+            cropped_image, 1, np.pi / 60, 10, np.array([]),
+            minLineLength=self.min_line_length, maxLineGap=self.max_line_gap
+        )
+
+        # Classify lines into left and right
+        left_lines_x, left_lines_y = [], []
+        right_lines_x, right_lines_y = [], []
+        if lines is not None:
             for line in lines:
                 for x1, y1, x2, y2 in line:
                     if (x2 - x1) != 0:
                         slope = (y2 - y1) / (x2 - x1)
+                        if math.fabs(slope) < 0.5:  # Filter out lines that are too horizontal
+                            continue
                         if slope < 0:
-                            left_lines.append(line)
+                            left_lines_x.extend([x1, x2])
+                            left_lines_y.extend([y1, y2])
                         else:
-                            right_lines.append(line)
-            return left_lines, right_lines
-        
-        def calculate_steering_angle(left_line, right_line, width, height):
+                            right_lines_x.extend([x1, x2])
+                            right_lines_y.extend([y1, y2])
 
-            if left_line is None or right_line is None:
-                return 0.0
-            
-            lane_center = (
-                (left_line[0][2] + right_line[0][2]) // 2,
-                (left_line[0][3] + right_line[0][3]) // 2
-            )
-            image_center = (width // 2, height)
-            
-            offset = lane_center[0] - image_center[0]
+        # Calculate the steering angle
+        def calculate_steering_angle(left_x, left_y, right_x, right_y, width, height):
+            if not left_x or not right_x or not left_y or not right_y:
+                return 0.0  # Return 0 if either line data is missing
+
+            # Fit polynomials to the left and right lines
+            poly_left = np.poly1d(np.polyfit(left_y, left_x, deg=1))
+            poly_right = np.poly1d(np.polyfit(right_y, right_x, deg=1))
+
+            # Calculate the x-coordinates of the lines at the bottom (max_y) and near the horizon (min_y)
+            min_y = int(image.shape[0] * (3 / 5))  # Just below the horizon
+            max_y = image.shape[0]  # Bottom of the image
+
+            left_x_start = int(poly_left(max_y))
+            left_x_end = int(poly_left(min_y))
+            right_x_start = int(poly_right(max_y))
+            right_x_end = int(poly_right(min_y))
+
+              # Draw the left and right lines on the image
+            cv2.line(image, (left_x_start, max_y), (left_x_end, min_y), (0, 255, 0), 5)
+            cv2.line(image, (right_x_start, max_y), (right_x_end, min_y), (0, 255, 0), 5)
+
+            # Calculate lane center
+            lane_center_x = (left_x_end + right_x_end) // 2
+            lane_center = (lane_center_x, min_y)
+
+            # Calculate image center and offset
+            image_center_x = width // 2
+            offset = lane_center_x - image_center_x
+
+            # Calculate the steering angle
             angle = np.arctan2(offset, height) * (180.0 / np.pi)
             return float(angle)
-        
-        processed_image = preprocess_image(cv_image)
 
-        height, width = cv_image.shape[:2]
-        region_of_interest_coor = get_region_of_interest_coordinates(width, height)
-        mask = np.zeros_like(processed_image)
-        cv2.fillPoly(mask, [np.array(region_of_interest_coor)], 255)
-        center_mask = [
-            (int(0.5 * width), int(0.5 * height)),  # Top-left
-            (int(0.18 * width), int(0.90 * height)),  # Bottom-left
-            (int(0.82 * width), int(0.90 * height)),  # Bottom-right
-            (int(0.5 * width), int(0.5 * height))   # Top-right
-        ]
-        cropped_image = cv2.bitwise_and(processed_image, mask)
-        cv2.fillPoly(cropped_image, [np.array(center_mask)],0)
-        cv2.imwrite('pon.jpg', cropped_image)
-        lines = cv2.HoughLinesP(cropped_image, 1, np.pi / 180, 20, np.array([]), minLineLength=self.min_line_length, maxLineGap=self.max_line_gap)
-
-        left_lines, right_lines = classify_lines(lines) if lines is not None else ([], [])
-        left_line = np.mean(left_lines, axis=0).astype(int) if left_lines else None
-        right_line = np.mean(right_lines, axis=0).astype(int) if right_lines else None
+        angle = calculate_steering_angle(left_lines_x, left_lines_y, right_lines_x, right_lines_y, width, height)
 
         # Draw lines on the image
-        if left_line is not None:
-            cv_image = cv2.line(cv_image, (left_line[0][0], left_line[0][1]), (left_line[0][2], left_line[0][3]), (0, 255, 0), 3)
-        if right_line is not None:
-            cv_image = cv2.line(cv_image, (right_line[0][0], right_line[0][1]), (right_line[0][2], right_line[0][3]), (0, 255, 0), 3)
+        if left_lines_x and left_lines_y:
+            cv2.line(cv_image, (int(left_lines_x[0]), int(left_lines_y[0])), (int(left_lines_x[-1]), int(left_lines_y[-1])), (0, 255, 0), 3)
+        if right_lines_x and right_lines_y:
+            cv2.line(cv_image, (int(right_lines_x[0]), int(right_lines_y[0])), (int(right_lines_x[-1]), int(right_lines_y[-1])), (0, 255, 0), 3)
 
-        angle = calculate_steering_angle(left_line, right_line, width, height)
-        # Display angle information on image
+        # Display angle information on the image
         cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
-        # Add polygon to ouptut image
+
+        # Draw region of interest and center mask
         cv2.polylines(cv_image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
         cv2.polylines(cv_image, [np.array(center_mask)], True, (0, 255, 180), 2)
 
+        # Publish the steering angle as Float32
         road_info = Float32()
         road_info.data = float(angle)
-        #self.get_logger().info(f'Steering angle is to {angle:.2f}.')
         return cv_image, road_info.data
+
+
     
 def main(args=None):
 

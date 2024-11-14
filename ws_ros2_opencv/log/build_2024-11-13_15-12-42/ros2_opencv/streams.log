@@ -1,0 +1,47 @@
+[5.372s] Invoking command in '/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv': PYTHONPATH=/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/ros2_opencv build --build-base /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build install --record /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log --single-version-externally-managed install_data
+[6.977s] running egg_info
+[7.106s] writing ../../build/ros2_opencv/ros2_opencv.egg-info/PKG-INFO
+[7.109s] writing dependency_links to ../../build/ros2_opencv/ros2_opencv.egg-info/dependency_links.txt
+[7.112s] writing entry points to ../../build/ros2_opencv/ros2_opencv.egg-info/entry_points.txt
+[7.114s] writing requirements to ../../build/ros2_opencv/ros2_opencv.egg-info/requires.txt
+[7.118s] writing top-level names to ../../build/ros2_opencv/ros2_opencv.egg-info/top_level.txt
+[7.349s] reading manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+[7.358s] writing manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+[7.359s] running build
+[7.359s] running build_py
+[7.361s] copying ros2_opencv/detection_display.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.363s] copying ros2_opencv/road_detect1.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.365s] copying ros2_opencv/object_detection.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.367s] copying ros2_opencv/cameraPublisher.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.371s] copying ros2_opencv/steer.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.372s] copying ros2_opencv/ultrasonic_avoidance.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.374s] copying ros2_opencv/road_detect.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.376s] copying ros2_opencv/subscriberimage.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.378s] copying ros2_opencv/__init__.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.379s] copying ros2_opencv/driving.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.381s] copying ros2_opencv/object_detection_ssd_lite.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.383s] copying ros2_opencv/object_detection_yolo.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.385s] copying ros2_opencv/beginstop.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+[7.388s] running install
+[7.410s] running install_lib
+[7.498s] copying /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv/road_detect.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv
+[7.503s] byte-compiling /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv/road_detect.py to road_detect.cpython-310.pyc
+[7.511s] running install_data
+[7.513s] copying resource/ros2_opencv -> /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/share/ament_index/resource_index/packages
+[7.515s] copying package.xml -> /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/share/ros2_opencv
+[7.516s] copying launch/camera_launch.launch.py -> /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/share/ros2_opencv/launch
+[7.518s] running install_egg_info
+[7.613s] removing '/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv-0.0.0-py3.10.egg-info' (and everything under it)
+[7.615s] Copying ../../build/ros2_opencv/ros2_opencv.egg-info to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages/ros2_opencv-0.0.0-py3.10.egg-info
+[7.624s] running install_scripts
+[8.846s] Installing driver_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.855s] Installing image_display_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.857s] Installing lane_detection_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.863s] Installing object_detection_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.865s] Installing obstacle_avoidance script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.867s] Installing publisher_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.869s] Installing steering_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.873s] Installing stop_sign_detection script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.883s] Installing subscriber_node script to /home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+[8.894s] writing list of installed files to '/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log'
+[9.057s] Invoked command in '/home/epue/capstone.git/capstone/ws_ros2_opencv/src/ros2_opencv' returned '0': PYTHONPATH=/home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/epue/capstone.git/capstone/ws_ros2_opencv/install/ros2_opencv/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/ros2_opencv build --build-base /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/build install --record /home/epue/capstone.git/capstone/ws_ros2_opencv/build/ros2_opencv/install.log --single-version-externally-managed install_data

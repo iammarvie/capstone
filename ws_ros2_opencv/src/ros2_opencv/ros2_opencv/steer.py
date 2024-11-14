@@ -34,6 +34,7 @@ class SteeringNode(Node):
         #self.get_logger().info(f'Published: {twist.angular.z}')
 
     def steer(self, lane_info):
+        self.get_logger().info(f'Angle mi: {lane_info}')
         if abs(lane_info) < 2:
             #self.get_logger().info('Steering straight')
             return 0.0
