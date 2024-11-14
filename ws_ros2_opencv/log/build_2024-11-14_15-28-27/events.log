@@ -1,0 +1,8 @@
+[0.000000] (-) TimerEvent: {}
+[0.000950] (ros2_opencv) JobQueued: {'identifier': 'ros2_opencv', 'dependencies': OrderedDict()}
+[0.001303] (ros2_opencv) JobStarted: {'identifier': 'ros2_opencv'}
+[0.073670] (-) TimerEvent: {}
+[0.174586] (-) TimerEvent: {}
+[0.287620] (-) TimerEvent: {}
+[0.312938] (ros2_opencv) JobEnded: {'identifier': 'ros2_opencv', 'rc': 0}
+[0.325833] (-) EventReactorShutdown: {}

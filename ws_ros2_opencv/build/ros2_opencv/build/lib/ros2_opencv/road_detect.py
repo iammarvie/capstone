@@ -21,10 +21,10 @@ class LaneDetectionNode(Node):
         self.publisher_image = self.create_publisher(Image, 'lane_image', 1)
         self.publisher_image2 = self.create_publisher(Image, 'canny_image', 1)
 
-        self.min_line_length = 20
+        self.min_line_length = 40
         self.max_line_gap = 150
-        self.canny_threshold1 = 30
-        self.canny_threshold2 = 70
+        self.canny_threshold1 = 50
+        self.canny_threshold2 = 120
 
     def listener_callback(self, msg):
         start_time = time.perf_counter()
@@ -54,31 +54,19 @@ class LaneDetectionNode(Node):
         # Preprocess the image
         image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
         kernel = np.ones((3, 3), np.float32) / 9
-        denoised_image = cv2.filter2D(image, -1, kernel)
-        gray_image = cv2.cvtColor(denoised_image, cv2.COLOR_BGR2GRAY)
+        #denoised_image = cv2.filter2D(image, -1, kernel)
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         cv2.imwrite('gray.jpg', gray_image)
-        equalized_image = cv2.equalizeHist(gray_image)
-        blur_image = cv2.GaussianBlur(equalized_image, (5, 5), 0)
-        cannied_image = cv2.Canny(blur_image, self.canny_threshold1, self.canny_threshold2)
+        #equalized_image = cv2.equalizeHist(gray_image)
+        #blur_image = cv2.GaussianBlur(equalized_image, (5, 5), 0)
+        cannied_image = cv2.Canny(gray_image, self.canny_threshold1, self.canny_threshold2)
         # Convert single-channel image to three channels for VideoWriter
         cannied_image_bgr = cv2.cvtColor(cannied_image, cv2.COLOR_GRAY2BGR)
-
-        #vheight, vwidth = cannied_image.shape
-        #video = cv2.VideoWriter('canny.avi', cv2.VideoWriter_fourcc(*'XVID'), 5, (vwidth, vheight))
-
-        # Write the frame to the video
-        #video.write(cannied_image_bgr)
-
-        # Release and close the video file
-        #video.release()
-        #cv2.destroyAllWindows()
-        cv2.imwrite('canny.jpg', cannied_image)
-
         height, width = cv_image.shape[:2]
 
         # Define the region of interest
         def get_region_of_interest_coordinates(width, height):
-            hpush_b = 0.90
+            hpush_b = 0.84
             hpush_t = 0.75
             bleft = (int(width * 0), int(height * hpush_b))  # Bottom-left
             bright = (int(width), int(height * hpush_b))  # Bottom-right
@@ -87,10 +75,16 @@ class LaneDetectionNode(Node):
             return [bleft, tleft, tright, bright]
 
         region_of_interest_coor = get_region_of_interest_coordinates(width, height)
+        center_mask = [
+            (int(0.5 * width), int(0.5 * height)),  # Top-left
+            (int(0.20 * width), int(0.84 * height)),  # Bottom-left
+            (int(0.80 * width), int(0.84 * height)),  # Bottom-right
+            (int(0.5 * width), int(0.5 * height))   # Top-right
+        ]
         mask = np.zeros_like(cannied_image)
         cv2.fillPoly(mask, [np.array(region_of_interest_coor)], 255)
         cropped_image = cv2.bitwise_and(cannied_image, mask)
-
+        cv2.fillPoly(cropped_image, [np.array(center_mask)],0)
         # Detect lines using Hough Transform
         lines = cv2.HoughLinesP(
             cropped_image, 1, np.pi / 60, 10, np.array([]),
@@ -156,6 +150,9 @@ class LaneDetectionNode(Node):
 
         # Draw region of interest
         cv2.polylines(cv_image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
+        cv2.polylines(cv_image, [np.array(center_mask)], True, (0, 255, 255), 2)
+
+        cv2.polylines(cannied_image_bgr, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
 
         # Publish the steering angle as Float32
         road_info = Float32()
