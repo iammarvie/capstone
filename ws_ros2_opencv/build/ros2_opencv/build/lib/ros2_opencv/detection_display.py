@@ -8,45 +8,73 @@ class ImageDisplayNode(Node):
 
     def __init__(self):
         super().__init__('image_display_node')
-        #self.subscription = self.create_subscription(Image,'detection_image', self.listener_callback,1)
-        self.subscription = self.create_subscription(Image, 'lane_image', self.listener_callback, 3)
-        self.subscription  # Prevent unused variable warning
+
+        # First subscription
+        self.subscription1 = self.create_subscription(
+            Image, 'lane_image', self.listener_callback1, 3
+        )
+        self.subscription1  # Prevent unused variable warning
+
+        # Second subscription
+        self.subscription2 = self.create_subscription(
+            Image, 'canny_image', self.listener_callback2, 3
+        )
+        self.subscription2  # Prevent unused variable warning
+
         self.bridge = CvBridge()
 
-          # Initialize video writer
-        self.video_writer = None
-        self.video_file = 'output_video.avi'  # Output video file name
-        self.frame_width = 320  # Adjust to match your frame width
-        self.frame_height = 320  # Adjust to match your frame height
-        self.frame_rate = 5.0  # Frames per second
+        # Video writer for lane_image
+        self.video_writer1 = None
+        self.video_file1 = 'lane_output_video.avi'
+        self.frame_width1 = 320
+        self.frame_height1 = 320
+        self.frame_rate1 = 5.0
 
-    def listener_callback(self, msg):
-        
-        #self.get_logger().info('Received an image on detection_image')
+        # Video writer for detection_image
+        self.video_writer2 = None
+        self.video_file2 = 'canny_ouput.avi'
+        self.frame_width2 = 320
+        self.frame_height2 = 320
+        self.frame_rate2 = 5.0
+
+    def listener_callback1(self, msg):
         # Convert ROS Image message to OpenCV image
         cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
-        
-        
-         # Initialize video writer if not already initialized
-        if self.video_writer is None:
-            # Define the codec and create VideoWriter object
-            fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec, e.g., 'XVID' or 'MJPG'
-            self.video_writer = cv2.VideoWriter(self.video_file, fourcc, self.frame_rate, (self.frame_width, self.frame_height))
-        
+
+        # Initialize video writer if not already initialized
+        if self.video_writer1 is None:
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            self.video_writer1 = cv2.VideoWriter(
+                self.video_file1, fourcc, self.frame_rate1,
+                (self.frame_width1, self.frame_height1)
+            )
 
         # Write the frame to the video file
-        self.video_writer.write(cv_image)
+        self.video_writer1.write(cv_image)
 
-        # Display the image
-        #cv2.imshow('Detected Image', cv_image)
-        #cv2.waitKey(1)
+    def listener_callback2(self, msg):
+        # Convert ROS Image message to OpenCV image
+        cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
 
-        def destroy_node(self):
-        # Release the video writer object
-            if self.video_writer is not None:
-                self.video_writer.release()
-            cv2.destroyAllWindows()
-            super().destroy_node()
+        # Initialize video writer if not already initialized
+        if self.video_writer2 is None:
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            self.video_writer2 = cv2.VideoWriter(
+                self.video_file2, fourcc, self.frame_rate2,
+                (self.frame_width2, self.frame_height2)
+            )
+
+        # Write the frame to the video file
+        self.video_writer2.write(cv_image)
+
+    def destroy_node(self):
+        # Release the video writer objects
+        if self.video_writer1 is not None:
+            self.video_writer1.release()
+        if self.video_writer2 is not None:
+            self.video_writer2.release()
+        cv2.destroyAllWindows()
+        super().destroy_node()
 
 def main(args=None):
     rclpy.init(args=args)

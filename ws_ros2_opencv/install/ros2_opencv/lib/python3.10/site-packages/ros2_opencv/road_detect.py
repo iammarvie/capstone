@@ -19,6 +19,7 @@ class LaneDetectionNode(Node):
             self.listener_callback, 1)
         self.publisher_road = self.create_publisher(Float32, 'lane_info', 1)
         self.publisher_image = self.create_publisher(Image, 'lane_image', 1)
+        self.publisher_image2 = self.create_publisher(Image, 'canny_image', 1)
 
         self.min_line_length = 20
         self.max_line_gap = 150
@@ -32,10 +33,12 @@ class LaneDetectionNode(Node):
 
             cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
 
-            processed_image, road_info = self.detect_lane(cv_image)
+            processed_image, road_info, canny = self.detect_lane(cv_image)
 
             processed_image_msg = self.bridge.cv2_to_imgmsg(processed_image, 'bgr8')
+            canny_msg =  self.bridge.cv2_to_imgmsg(canny, 'bgr8')
             self.publisher_image.publish(processed_image_msg)
+            self.publisher_image2.publish(canny_msg)
 
             road_info_msg = Float32()
             road_info_msg.data = road_info
@@ -57,6 +60,18 @@ class LaneDetectionNode(Node):
         equalized_image = cv2.equalizeHist(gray_image)
         blur_image = cv2.GaussianBlur(equalized_image, (5, 5), 0)
         cannied_image = cv2.Canny(blur_image, self.canny_threshold1, self.canny_threshold2)
+        # Convert single-channel image to three channels for VideoWriter
+        cannied_image_bgr = cv2.cvtColor(cannied_image, cv2.COLOR_GRAY2BGR)
+
+        #vheight, vwidth = cannied_image.shape
+        #video = cv2.VideoWriter('canny.avi', cv2.VideoWriter_fourcc(*'XVID'), 5, (vwidth, vheight))
+
+        # Write the frame to the video
+        #video.write(cannied_image_bgr)
+
+        # Release and close the video file
+        #video.release()
+        #cv2.destroyAllWindows()
         cv2.imwrite('canny.jpg', cannied_image)
 
         height, width = cv_image.shape[:2]
@@ -74,16 +89,7 @@ class LaneDetectionNode(Node):
         region_of_interest_coor = get_region_of_interest_coordinates(width, height)
         mask = np.zeros_like(cannied_image)
         cv2.fillPoly(mask, [np.array(region_of_interest_coor)], 255)
-
-        # Define and apply the center mask
-        center_mask = [
-            (int(0.5 * width), int(0.5 * height)),  # Top-left
-            (int(0.25 * width), int(0.90 * height)),  # Bottom-left
-            (int(0.75 * width), int(0.90 * height)),  # Bottom-right
-            (int(0.5 * width), int(0.5 * height))  # Top-right
-        ]
         cropped_image = cv2.bitwise_and(cannied_image, mask)
-        cv2.fillPoly(cropped_image, [np.array(center_mask)], 0)
 
         # Detect lines using Hough Transform
         lines = cv2.HoughLinesP(
@@ -108,25 +114,25 @@ class LaneDetectionNode(Node):
                             right_lines_x.extend([x1, x2])
                             right_lines_y.extend([y1, y2])
 
-        # Calculate the steering angle
-        def calculate_steering_angle(left_x, left_y, right_x, right_y, width, height):
+        # Calculate the steering angle and draw lines
+        def calculate_steering_angle_and_draw(left_x, left_y, right_x, right_y, width, height, image):
             if not left_x or not right_x or not left_y or not right_y:
                 return 0.0  # Return 0 if either line data is missing
 
-            # Fit polynomials to the left and right lines
+            # Fit lines to the left and right points
             poly_left = np.poly1d(np.polyfit(left_y, left_x, deg=1))
             poly_right = np.poly1d(np.polyfit(right_y, right_x, deg=1))
 
-            # Calculate the x-coordinates of the lines at the bottom (max_y) and near the horizon (min_y)
-            min_y = int(image.shape[0] * (3 / 5))  # Just below the horizon
-            max_y = image.shape[0]  # Bottom of the image
+            # Calculate the x-coordinates of the lines at min_y and max_y
+            min_y = int(height * 0.6)  # Just below the horizon
+            max_y = height  # Bottom of the image
 
             left_x_start = int(poly_left(max_y))
             left_x_end = int(poly_left(min_y))
             right_x_start = int(poly_right(max_y))
             right_x_end = int(poly_right(min_y))
 
-              # Draw the left and right lines on the image
+            # Draw the left and right lines on the image
             cv2.line(image, (left_x_start, max_y), (left_x_end, min_y), (0, 255, 0), 5)
             cv2.line(image, (right_x_start, max_y), (right_x_end, min_y), (0, 255, 0), 5)
 
@@ -142,25 +148,19 @@ class LaneDetectionNode(Node):
             angle = np.arctan2(offset, height) * (180.0 / np.pi)
             return float(angle)
 
-        angle = calculate_steering_angle(left_lines_x, left_lines_y, right_lines_x, right_lines_y, width, height)
-
-        # Draw lines on the image
-        if left_lines_x and left_lines_y:
-            cv2.line(cv_image, (int(left_lines_x[0]), int(left_lines_y[0])), (int(left_lines_x[-1]), int(left_lines_y[-1])), (0, 255, 0), 3)
-        if right_lines_x and right_lines_y:
-            cv2.line(cv_image, (int(right_lines_x[0]), int(right_lines_y[0])), (int(right_lines_x[-1]), int(right_lines_y[-1])), (0, 255, 0), 3)
+        # Calculate the angle and draw lines
+        angle = calculate_steering_angle_and_draw(left_lines_x, left_lines_y, right_lines_x, right_lines_y, width, height, cv_image)
 
         # Display angle information on the image
         cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
-        # Draw region of interest and center mask
+        # Draw region of interest
         cv2.polylines(cv_image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
-        cv2.polylines(cv_image, [np.array(center_mask)], True, (0, 255, 180), 2)
 
         # Publish the steering angle as Float32
         road_info = Float32()
         road_info.data = float(angle)
-        return cv_image, road_info.data
+        return cv_image, road_info.data, cannied_image_bgr
 
 
     
