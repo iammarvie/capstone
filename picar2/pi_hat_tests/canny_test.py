@@ -9,8 +9,11 @@ def callback(x):
 
 # Read the input image
 image = cv2.imread('image.jpg')
+#add brightness to image
+image = cv2.add(image, np.array([100.0]))
 image = cv2.resize(image, (320, 320))
-image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2HLS)
+hls_image = cv2.cvtColor(image, cv2.COLOR_BGR2HLS)
 height, width = image.shape[:2]
 kernel = np.ones((3, 3), np.float32) / 9
 #denoised_image = cv2.filter2D(image, -1, kernel)
