@@ -23,8 +23,8 @@ class LaneDetectionNode(Node):
 
         self.min_line_length = 40
         self.max_line_gap = 150
-        self.canny_threshold1 = 50
-        self.canny_threshold2 = 120
+        self.canny_threshold1 = 68
+        self.canny_threshold2 = 255
 
     def listener_callback(self, msg):
         start_time = time.perf_counter()
@@ -53,13 +53,20 @@ class LaneDetectionNode(Node):
 
         # Preprocess the image
         image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
-        kernel = np.ones((3, 3), np.float32) / 9
-        #denoised_image = cv2.filter2D(image, -1, kernel)
+        # Convert to HSV and apply a color threshold to detect brownish areas
+        hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        lower_brown = np.array([10, 100, 20])  # Adjust these values for the brownish area
+        upper_brown = np.array([20, 255, 200])  # Adjust these values for the brownish area
+        mask_brown = cv2.inRange(hsv_image, lower_brown, upper_brown)
+        highlighted_image = cv2.bitwise_and(image, image, mask=mask_brown)
+
+        # Convert to grayscale and apply histogram equalization
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        equalized_image = cv2.equalizeHist(gray_image)        
         cv2.imwrite('gray.jpg', gray_image)
         #equalized_image = cv2.equalizeHist(gray_image)
         #blur_image = cv2.GaussianBlur(equalized_image, (5, 5), 0)
-        cannied_image = cv2.Canny(gray_image, self.canny_threshold1, self.canny_threshold2)
+        cannied_image = cv2.Canny(equalized_image, self.canny_threshold1, self.canny_threshold2)
         # Convert single-channel image to three channels for VideoWriter
         cannied_image_bgr = cv2.cvtColor(cannied_image, cv2.COLOR_GRAY2BGR)
         height, width = cv_image.shape[:2]
