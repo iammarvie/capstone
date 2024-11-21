@@ -21,10 +21,10 @@ class LaneDetectionNode(Node):
         self.publisher_image = self.create_publisher(Image, 'lane_image', 1)
         self.publisher_image2 = self.create_publisher(Image, 'canny_image', 1)
 
-        self.min_line_length = 40
+        self.min_line_length = 20
         self.max_line_gap = 150
-        self.canny_threshold1 = 68
-        self.canny_threshold2 = 255
+        self.canny_threshold1 = 30
+        self.canny_threshold2 = 90
 
     def listener_callback(self, msg):
         start_time = time.perf_counter()
@@ -84,8 +84,8 @@ class LaneDetectionNode(Node):
         region_of_interest_coor = get_region_of_interest_coordinates(width, height)
         center_mask = [
             (int(0.5 * width), int(0.5 * height)),  # Top-left
-            (int(0.20 * width), int(0.84 * height)),  # Bottom-left
-            (int(0.80 * width), int(0.84 * height)),  # Bottom-right
+            (int(0.30 * width), int(0.84 * height)),  # Bottom-left
+            (int(0.70 * width), int(0.84 * height)),  # Bottom-right
             (int(0.5 * width), int(0.5 * height))   # Top-right
         ]
         mask = np.zeros_like(cannied_image)
@@ -97,66 +97,70 @@ class LaneDetectionNode(Node):
             cropped_image, 1, np.pi / 60, 10, np.array([]),
             minLineLength=self.min_line_length, maxLineGap=self.max_line_gap
         )
+        image_center_x = width // 2
+        max_y = height  # Bottom of the image
+        # Initialize variables for left and right lines
+        left_line, right_line = None, None
+        lane_center = (image_center_x, max_y)  # Default lane center
 
-        # Classify lines into left and right
-        left_lines_x, left_lines_y = [], []
-        right_lines_x, right_lines_y = [], []
         if lines is not None:
+            left_lines, right_lines = [], []
+
+            # Classify lines into left and right
             for line in lines:
                 for x1, y1, x2, y2 in line:
-                    if (x2 - x1) != 0:
+                    if (x2 - x1) != 0:  # Avoid division by zero
                         slope = (y2 - y1) / (x2 - x1)
-                        if math.fabs(slope) < 0.5:  # Filter out lines that are too horizontal
-                            continue
-                        if slope < 0:
-                            left_lines_x.extend([x1, x2])
-                            left_lines_y.extend([y1, y2])
-                        else:
-                            right_lines_x.extend([x1, x2])
-                            right_lines_y.extend([y1, y2])
+                        if slope < -0.5:  # Filter for left lines
+                            left_lines.append((x1, y1, x2, y2))
+                        elif slope > 0.5:  # Filter for right lines
+                            right_lines.append((x1, y1, x2, y2))
 
-        # Calculate the steering angle and draw lines
-        def calculate_steering_angle_and_draw(left_x, left_y, right_x, right_y, width, height, image):
-            if not left_x or not right_x or not left_y or not right_y:
-                return 0.0  # Return 0 if either line data is missing
+            # Compute average left and right lines
+            if left_lines:
+                left_line = np.mean(left_lines, axis=0).astype(int)
+                cv2.line(cv_image, (left_line[0], left_line[1]), (left_line[2], left_line[3]), (0, 255, 0), 5)
+            if right_lines:
+                right_line = np.mean(right_lines, axis=0).astype(int)
+                cv2.line(cv_image, (right_line[0], right_line[1]), (right_line[2], right_line[3]), (0, 255, 0), 5)
 
-            # Fit lines to the left and right points
-            poly_left = np.poly1d(np.polyfit(left_y, left_x, deg=1))
-            poly_right = np.poly1d(np.polyfit(right_y, right_x, deg=1))
-
-            # Calculate the x-coordinates of the lines at min_y and max_y
-            min_y = int(height * 0.6)  # Just below the horizon
-            max_y = height  # Bottom of the image
-
-            left_x_start = int(poly_left(max_y))
-            left_x_end = int(poly_left(min_y))
-            right_x_start = int(poly_right(max_y))
-            right_x_end = int(poly_right(min_y))
-
-            # Draw the left and right lines on the image
-            cv2.line(image, (left_x_start, max_y), (left_x_end, min_y), (0, 255, 0), 5)
-            cv2.line(image, (right_x_start, max_y), (right_x_end, min_y), (0, 255, 0), 5)
-
-            # Calculate lane center
-            lane_center_x = (left_x_end + right_x_end) // 2
-            lane_center = (lane_center_x, min_y)
-
-            # Calculate image center and offset
-            image_center_x = width // 2
-            offset = lane_center_x - image_center_x
-
-            # Calculate the steering angle
+            # Calculate lane center if both lines exist
+            if left_line is not None and right_line is not None:
+                lane_center = (
+                    (left_line[2] + right_line[2]) // 2,
+                    (left_line[3] + right_line[3]) // 2
+                )
+        if left_line is not None and right_line is not None:
+            lane_center = (
+                (left_line[2] + right_line[2]) // 2,
+                (left_line[3] + right_line[3]) // 2
+            )
+            offset = lane_center[0] - image_center_x
             angle = np.arctan2(offset, height) * (180.0 / np.pi)
-            return float(angle)
+        else:
+            if left_line is None and right_line is not None:
+                lane_center = (right_line[0], right_line[1])  # Use right line's start point
+                offset = lane_center[0] - image_center_x
+                angle = np.arctan2(offset, height) * (180.0 / np.pi)
+            elif right_line is None and left_line is not None:
+                lane_center = (left_line[0], left_line[1])  # Use left line's start point
+                offset = lane_center[0] - image_center_x
+                angle = np.arctan2(offset, height) * (180.0 / np.pi)
+            else:
+                lane_center = (image_center_x, max_y)
+                offset = 0
+                angle = 0.0
 
-        # Calculate the angle and draw lines
-        angle = calculate_steering_angle_and_draw(left_lines_x, left_lines_y, right_lines_x, right_lines_y, width, height, cv_image)
+        # Calculate offset and angle
+        offset = lane_center[0] - image_center_x
+        angle = np.arctan2(offset, height) * (180.0 / np.pi)
 
-        # Display angle information on the image
+        # Display angle information and draw lane center line
         cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
-        # Visualize the lane center and the offset line
-        cv2.circle(cv_image, lane_center, 5, (0, 0, 255), -1)
-        cv2.line(cv_image, (image_center_x, max_y), lane_center, (255, 0, 255), 2)
+        if lane_center:
+            cv2.circle(cv_image, lane_center, 5, (0, 0, 255), -1)
+            cv2.line(cv_image, (image_center_x, max_y), lane_center, (255, 0, 255), 2)
+
         # Draw region of interest
         cv2.polylines(cv_image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
         cv2.polylines(cv_image, [np.array(center_mask)], True, (0, 255, 255), 2)
