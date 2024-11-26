@@ -17,7 +17,7 @@ class ImageDisplayNode(Node):
 
         # Second subscription
         self.subscription2 = self.create_subscription(
-            Image, 'canny_image', self.listener_callback2, 3
+            Image, 'detection_image', self.listener_callback2, 3
         )
         self.subscription2  # Prevent unused variable warning
 
@@ -32,7 +32,7 @@ class ImageDisplayNode(Node):
 
         # Video writer for detection_image
         self.video_writer2 = None
-        self.video_file2 = 'canny_ouput.avi'
+        self.video_file2 = 'stop_sign.avi'
         self.frame_width2 = 320
         self.frame_height2 = 320
         self.frame_rate2 = 5.0

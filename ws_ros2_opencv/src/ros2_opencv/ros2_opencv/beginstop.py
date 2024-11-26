@@ -20,6 +20,9 @@ class StopSignDetectionNode(Node):
         # Publisher to control car's movement (cmd_vel)
         self.publisherstop_ = self.create_publisher(Twist, 'cmd_vel', 1)
 
+        #Publish a stop signal
+        self.publisher_stop_signal = self.create_publisher(String, 'stop_signal', 1)
+
         # Parameters for stopping behavior
         self.stop_sign_detected = False
         self.distance_threshold = 15  # Distance threshold in pixels for stopping (adjust accordingly)
@@ -73,6 +76,9 @@ class StopSignDetectionNode(Node):
             else:
                 self.get_logger().error('Twist publisher not initialized.')
             self.stop_sign_detected = True  # Prevent multiple stop commands
+
+        self.get_logger().info('Publishing stop signal.')
+        self.publisher_stop_signal.publish(String(data='stop'))
            
 
 def main(args=None):

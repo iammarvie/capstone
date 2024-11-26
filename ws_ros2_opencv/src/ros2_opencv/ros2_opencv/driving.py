@@ -45,6 +45,9 @@ class DrivingNode(Node):
 
         begin_timer = time.time()
 
+        self.publishe_resume_signal = self.create_publisher(String, 'stop_signal', 1)
+        self.performing_turn = False
+
     def servo_motor_initialization(self):
         # Initialize the I2C bus and PCA9685
         i2c_bus = busio.I2C(SCL, SDA)
@@ -66,11 +69,40 @@ class DrivingNode(Node):
         self.destroy_timer(self.start_timer)  # Destroy the start timer
 
     def stop_callback(self, msg):
-        # stopping the car
-        linear_x = msg.linear.x
-        if linear_x == 0.0:
-            self.motor_speed(0)  # Stop the car
-            self.get_logger().info('Car stopped.')
+        if not self.performing_turn:
+            # stopping the car
+            linear_x = msg.linear.x
+            if linear_x == 0.0:
+                self.motor_speed(0)  # Stop the car
+                self.get_logger().info('Car stopped.')
+
+    def start_turn(self):
+        self.performing_turn = True
+        self.get_logger().info('Starting turn.')
+        # Go straight for 1 second before turning right
+        self.servo_steer.angle = 90
+        self.motor_speed(0.15)
+        self.get_logger().info('Going straight for 1 second.')
+        time.sleep(1)
+        self.get_logger().info('Turning right.')
+        self.servo_steer.angle = 45
+        self.motor_speed(0.15)
+        time.sleep(3)
+
+        self.motor_speed(0)
+        self.servo_steer.angle = 90
+        self.get_logger().info('Turn completed.')
+
+        # Publish a signal to resume lane detection
+        msg = String()
+        msg.data = 'go'
+        self.publishe_resume_signal.publish(msg)
+        self.get_logger().info('Published resume signal.')
+
+        # Resume driving
+        self.motor_speed(0.15)
+        self.get_logger().info('Resuming driving.')
+        self.performing_turn = False
 
     def up_down(self):
         self.up_down = servo.Servo(self.pca.channels[1])

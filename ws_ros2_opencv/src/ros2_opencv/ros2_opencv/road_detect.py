@@ -19,12 +19,16 @@ class LaneDetectionNode(Node):
             self.listener_callback, 1)
         self.publisher_road = self.create_publisher(Float32, 'lane_info', 1)
         self.publisher_image = self.create_publisher(Image, 'lane_image', 1)
-        self.publisher_image2 = self.create_publisher(Image, 'canny_image', 1)
+        #self.publisher_image2 = self.create_publisher(Image, 'canny_image', 1)
 
         self.min_line_length = 20
         self.max_line_gap = 150
         self.canny_threshold1 = 30
         self.canny_threshold2 = 90
+
+        #Stop signal to pause lane detection
+        self.pause_lane_detection = False
+        self.stop_signal = self.create_subscription(String, 'stop_signal', self.stop_signal_callback, 1)
 
     def listener_callback(self, msg):
         start_time = time.perf_counter()
@@ -38,7 +42,7 @@ class LaneDetectionNode(Node):
             processed_image_msg = self.bridge.cv2_to_imgmsg(processed_image, 'bgr8')
             canny_msg =  self.bridge.cv2_to_imgmsg(canny, 'bgr8')
             self.publisher_image.publish(processed_image_msg)
-            self.publisher_image2.publish(canny_msg)
+            #self.publisher_image2.publish(canny_msg)
 
             road_info_msg = Float32()
             road_info_msg.data = road_info
@@ -47,9 +51,21 @@ class LaneDetectionNode(Node):
         except CvBridgeError as e:
             self.get_logger().info(f'CvBridge Error: {e}')
         except Exception as e:
-            self.get_logger().info(f'Error: {e}')
+            self.get_logger().info(f'Unexpected Error: {e}')
+            
+    def stop_signal_callback(self, msg):
+        if msg.data == 'stop':
+            self.pause_lane_detection = True
+            self.get_logger().info('Lane detection paused.')
+        elif msg.data == 'go':
+            self.pause_lane_detection = False
+            self.get_logger().info('Lane detection resumed.')
 
     def detect_lane(self, cv_image):
+
+        # check to start or pause lane detection
+        if self.pause_lane_detection:
+            return cv_image, 0.0, cv_image
 
         # Preprocess the image
         image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
