@@ -10,6 +10,7 @@ os.environ["QT_QPA_PLATFORM"] = "offscreen"
 # Read the input image
 image = cv2.imread('image.jpg')
 image = cv2.resize(image, (320, 320))
+cv2.imwrite('imager.jpg', image)
 height, width = image.shape[:2]
 hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 lower_brown = np.array([10, 100, 20])  # Adjust these values for the brownish area
@@ -19,9 +20,11 @@ highlighted_image = cv2.bitwise_and(image, image, mask=mask_brown)
 # Convert to grayscale and apply histogram equalization
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 equalized_image = cv2.equalizeHist(gray_image)
-cannied_image = cv2.Canny(gray_image, 30, 90)
-cv2.imwrite('GRAy.jpg', gray_image)
+cannied_image = cv2.Canny(equalized_image, 74, 215)
+cv2.imwrite('Gray.jpg', gray_image)
 cv2.imwrite('canny.jpg', cannied_image)
+cv2.imwrite('equalized.jpg', equalized_image)
+cv2.imwrite('highlighted.jpg', highlighted_image)
 
 hpush_b = 0.99
 hpush_t = 0.80
@@ -48,7 +51,7 @@ lines = cv2.HoughLinesP(cropped_image, 1, np.pi / 60,10, np.array([]), minLineLe
 
 # Check if lines were detected before processing them
 # Check if lines were detected before processing them
-'''
+
 left_line = []
 right_line = []
 
@@ -86,12 +89,12 @@ if lines is not None:  # Ensure lines are detected
     # Check if both lines are not None before calculating the lane center and offset
     if left_line is not None and right_line is not None:
         #return 0.0
-        # Calculate the lane center (midpoint of left and right lines at bottom)
-        lane_center = (
-            (left_line[0][2] + right_line[0][2]) // 2,
-            (left_line[0][3] + right_line[0][3]) // 2
-        )
-
+        # Calculate the lane center
+        lane_center = ((left_line[0][2] + right_line[0][1]) // 2, (left_line[0][3] + right_line[0][2]) // 2)
+        print ("averages: ", left_line[0][2] + right_line[0][1] // 2, left_line[0][3] + right_line[0][2] // 2)
+        print (left_line[0][0], left_line[0][1], left_line[0][2], left_line[0][3])
+        print (right_line[0][0], right_line[0][1], right_line[0][2], right_line[0][3])
+        print (lane_center)
         # Calculate the image center
         image_center = (width // 2, height)
 
@@ -188,7 +191,7 @@ if lines is not None:
 
     else:
         print("Not enough points to fit lines.")
-
+'''
 # Draw the region of interest
 cv2.polylines(image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
 

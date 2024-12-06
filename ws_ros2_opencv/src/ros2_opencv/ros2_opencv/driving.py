@@ -43,11 +43,6 @@ class DrivingNode(Node):
         self.up_down = self.up_down()
         self.up_down.angle = 105
 
-        begin_timer = time.time()
-
-        self.publishe_resume_signal = self.create_publisher(String, 'stop_signal', 1)
-        self.performing_turn = False
-
     def servo_motor_initialization(self):
         # Initialize the I2C bus and PCA9685
         i2c_bus = busio.I2C(SCL, SDA)
@@ -69,40 +64,9 @@ class DrivingNode(Node):
         self.destroy_timer(self.start_timer)  # Destroy the start timer
 
     def stop_callback(self, msg):
-        if not self.performing_turn and msg.linear.x == 0.0:
-            self.motor_speed(0)  # Stop the car
-            self.get_logger().info('Car stopped. Initiating turn.')
-            self.start_turn()  # Begin turn after stop
-
-    def start_turn(self):
-        self.performing_turn = True
-        self.get_logger().info('Starting turn.')
-
-        # Go straight for 1 second
-        self.servo_steer.angle = 90
-        self.motor_speed(0.15)
-        time.sleep(1)
-
-        # Turn right for 3 seconds
-        self.servo_steer.angle = 45
-        self.motor_speed(0.15)
-        time.sleep(3)
-
-        # Stop and resume straight movement
-        self.motor_speed(0)
-        self.servo_steer.angle = 90
-        self.get_logger().info('Turn completed.')
-
-        # Publish a signal to resume lane detection
-        msg = String()
-        msg.data = 'go'
-        self.publishe_resume_signal.publish(msg)
-        self.get_logger().info('Published resume signal.')
-
-        # Resume driving
-        self.motor_speed(0.15)
-        self.performing_turn = False
-
+        msg.linear.x == 0.0
+        self.motor_speed(0)  # Stop the car
+        self.get_logger().info('Car stopped.')
 
     def up_down(self):
         self.up_down = servo.Servo(self.pca.channels[1])
@@ -119,9 +83,6 @@ class DrivingNode(Node):
 
     # Steer servo based on angular z value
     def steer_callback(self, msg):
-        if  time.time() - self.start_timing < 7:
-            #self.get_logger().info('waiting...')
-            return
         # convert angle for servo to use
         angular_z = msg.angular.z
         # convert angle so the servo can use it
