@@ -69,26 +69,26 @@ class DrivingNode(Node):
         self.destroy_timer(self.start_timer)  # Destroy the start timer
 
     def stop_callback(self, msg):
-        if not self.performing_turn:
-            # stopping the car
-            linear_x = msg.linear.x
-            if linear_x == 0.0:
-                self.motor_speed(0)  # Stop the car
-                self.get_logger().info('Car stopped.')
+        if not self.performing_turn and msg.linear.x == 0.0:
+            self.motor_speed(0)  # Stop the car
+            self.get_logger().info('Car stopped. Initiating turn.')
+            self.start_turn()  # Begin turn after stop
 
     def start_turn(self):
         self.performing_turn = True
         self.get_logger().info('Starting turn.')
-        # Go straight for 1 second before turning right
+
+        # Go straight for 1 second
         self.servo_steer.angle = 90
         self.motor_speed(0.15)
-        self.get_logger().info('Going straight for 1 second.')
         time.sleep(1)
-        self.get_logger().info('Turning right.')
+
+        # Turn right for 3 seconds
         self.servo_steer.angle = 45
         self.motor_speed(0.15)
         time.sleep(3)
 
+        # Stop and resume straight movement
         self.motor_speed(0)
         self.servo_steer.angle = 90
         self.get_logger().info('Turn completed.')
@@ -101,8 +101,8 @@ class DrivingNode(Node):
 
         # Resume driving
         self.motor_speed(0.15)
-        self.get_logger().info('Resuming driving.')
         self.performing_turn = False
+
 
     def up_down(self):
         self.up_down = servo.Servo(self.pca.channels[1])

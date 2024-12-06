@@ -65,6 +65,7 @@ class LaneDetectionNode(Node):
 
         # check to start or pause lane detection
         if self.pause_lane_detection:
+            self.get_logger().info('Lane detection in if paused.')         
             return cv_image, 0.0, cv_image
 
         # Preprocess the image
@@ -100,7 +101,7 @@ class LaneDetectionNode(Node):
         region_of_interest_coor = get_region_of_interest_coordinates(width, height)
         center_mask = [
             (int(0.5 * width), int(0.5 * height)),  # Top-left
-            (int(0.30 * width), int(0.84 * height)),  # Bottom-left
+            (int(0.25 * width), int(0.84 * height)),  # Bottom-left
             (int(0.70 * width), int(0.84 * height)),  # Bottom-right
             (int(0.5 * width), int(0.5 * height))   # Top-right
         ]

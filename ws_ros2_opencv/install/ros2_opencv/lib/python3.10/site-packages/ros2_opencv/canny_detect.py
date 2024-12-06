@@ -9,7 +9,7 @@ image = cv2.imread('image.jpg')
 image = cv2.resize(image, (320, 320))
 
 # Convert to HSV and apply a color threshold to detect brownish areas
-hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 lower_brown = np.array([10, 100, 20])  # Adjust these values for the brownish area
 upper_brown = np.array([20, 255, 200])  # Adjust these values for the brownish area
 mask_brown = cv2.inRange(hsv_image, lower_brown, upper_brown)
