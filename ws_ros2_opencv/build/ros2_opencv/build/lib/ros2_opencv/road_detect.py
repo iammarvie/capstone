@@ -23,15 +23,10 @@ class LaneDetectionNode(Node):
 
         self.min_line_length = 20
         self.max_line_gap = 150
-        self.canny_threshold1 = 30
-        self.canny_threshold2 = 90
-
-        #Stop signal to pause lane detection
-        self.pause_lane_detection = False
-        self.stop_signal = self.create_subscription(String, 'stop_signal', self.stop_signal_callback, 1)
+        self.canny_threshold1 = 74
+        self.canny_threshold2 = 215
 
     def listener_callback(self, msg):
-        start_time = time.perf_counter()
         try:
             #self.get_logger().info('Received an image on image_raw')
 
@@ -52,20 +47,8 @@ class LaneDetectionNode(Node):
             self.get_logger().info(f'CvBridge Error: {e}')
         except Exception as e:
             self.get_logger().info(f'Unexpected Error: {e}')
-            
-    def stop_signal_callback(self, msg):
-        if msg.data == 'stop':
-            self.pause_lane_detection = True
-            self.get_logger().info('Lane detection paused.')
-        elif msg.data == 'go':
-            self.pause_lane_detection = False
-            self.get_logger().info('Lane detection resumed.')
 
     def detect_lane(self, cv_image):
-
-        # check to start or pause lane detection
-        if self.pause_lane_detection:
-            return cv_image, 0.0, cv_image
 
         # Preprocess the image
         image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
@@ -89,19 +72,19 @@ class LaneDetectionNode(Node):
 
         # Define the region of interest
         def get_region_of_interest_coordinates(width, height):
-            hpush_b = 0.84
+            hpush_b = 0.91
             hpush_t = 0.75
             bleft = (int(width * 0), int(height * hpush_b))  # Bottom-left
             bright = (int(width), int(height * hpush_b))  # Bottom-right
-            tleft = (int(width * 0.20), int(height * hpush_t))  # Top-left
-            tright = (int(width * 0.80), int(height * hpush_t))  # Top-right
+            tleft = (int(width * 0.18), int(height * hpush_t))  # Top-left
+            tright = (int(width * 0.82), int(height * hpush_t))  # Top-right
             return [bleft, tleft, tright, bright]
 
         region_of_interest_coor = get_region_of_interest_coordinates(width, height)
         center_mask = [
             (int(0.5 * width), int(0.5 * height)),  # Top-left
-            (int(0.25 * width), int(0.84 * height)),  # Bottom-left
-            (int(0.70 * width), int(0.84 * height)),  # Bottom-right
+            (int(0.25 * width), int(0.91 * height)),  # Bottom-left
+            (int(0.70 * width), int(0.91 * height)),  # Bottom-right
             (int(0.5 * width), int(0.5 * height))   # Top-right
         ]
         mask = np.zeros_like(cannied_image)
@@ -139,37 +122,40 @@ class LaneDetectionNode(Node):
             if right_lines:
                 right_line = np.mean(right_lines, axis=0).astype(int)
                 cv2.line(cv_image, (right_line[0], right_line[1]), (right_line[2], right_line[3]), (0, 255, 0), 5)
-
+            '''
             # Calculate lane center if both lines exist
             if left_line is not None and right_line is not None:
                 lane_center = (
                     (left_line[2] + right_line[2]) // 2,
                     (left_line[3] + right_line[3]) // 2
                 )
+            '''
         if left_line is not None and right_line is not None:
             lane_center = (
-                (left_line[2] + right_line[2]) // 2,
-                (left_line[3] + right_line[3]) // 2
+                (left_line[2] + right_line[1]) // 2,
+                (left_line[3] + right_line[2]) // 2
             )
+            print ("lane seen: ", lane_center)
             offset = lane_center[0] - image_center_x
             angle = np.arctan2(offset, height) * (180.0 / np.pi)
         else:
             if left_line is None and right_line is not None:
                 lane_center = (right_line[0], right_line[1])  # Use right line's start point
+                print ("right lane c: ", lane_center)
                 offset = lane_center[0] - image_center_x
-                angle = np.arctan2(offset, height) * (180.0 / np.pi)
+                #angle = np.arctan2(offset, height) * (180.0 / np.pi)
+                angle = -6
             elif right_line is None and left_line is not None:
                 lane_center = (left_line[0], left_line[1])  # Use left line's start point
+                print ("left lane c: ", lane_center)
                 offset = lane_center[0] - image_center_x
-                angle = np.arctan2(offset, height) * (180.0 / np.pi)
+                #angle = np.arctan2(offset, height) * (180.0 / np.pi)
+                angle = 6
             else:
                 lane_center = (image_center_x, max_y)
+                print ("no lane c: ", lane_center)
                 offset = 0
                 angle = 0.0
-
-        # Calculate offset and angle
-        offset = lane_center[0] - image_center_x
-        angle = np.arctan2(offset, height) * (180.0 / np.pi)
 
         # Display angle information and draw lane center line
         cv2.putText(cv_image, f'Angle: {angle:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)

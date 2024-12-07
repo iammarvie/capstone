@@ -20,24 +20,12 @@ class StopSignDetectionNode(Node):
         # Publisher to control car's movement (cmd_vel)
         self.publisherstop_ = self.create_publisher(Twist, 'cmd_vel', 1)
 
-        #Publish a stop signal
-        self.publisher_stop_signal = self.create_publisher(String, 'stop_signal', 1)
-
         # Parameters for stopping behavior
         self.stop_sign_detected = False
-        self.distance_threshold = 15  # Distance threshold in pixels for stopping (adjust accordingly)
-
-        # Stop sign cooldown to prevent infinite loop
-        self.cooldown_active = False  # To manage cooldown between stops
-        self.cooldown_duration = 5  # Cooldown duration in seconds
+        self.distance_threshold = 25  # Distance threshold in pixels for stopping (adjust accordingly)
 
 
     def listener_callback(self, msg):
-        # check cooldown
-        if self.cooldown_active:
-            self.get_logger().info('Cooldown active. Ignoring stop sign detection.')
-            return
-        
         # Example data extraction from object detection (adjust to match actual detection data structure)
         # The msg contains object labels and bounding boxes. Assuming a format like: label, bbox_x1, bbox_y1, bbox_x2, bbox_y2
         data = msg.data.strip()  # Remove extra spaces
@@ -70,36 +58,17 @@ class StopSignDetectionNode(Node):
 
     def stop_the_car(self):
         self.get_logger().info('Entering stop_the_car function.')
-
-        if not self.stop_sign_detected:
-            self.get_logger().info('Stopping the car...')
             
-            # Publish zero velocity to stop the car
-            stop_msg = Twist()
-            stop_msg.linear.x = 0.0
-            stop_msg.angular.z = 0.0
-            
-            if hasattr(self, 'publisherstop_') and self.publisherstop_ is not None:
-                self.publisherstop_.publish(stop_msg)
-                self.get_logger().info('Stop command published.')
-            else:
-                self.get_logger().error('Twist publisher not initialized.')
-            
-            self.stop_sign_detected = True  # Prevent multiple stop commands
-            
-            # Publish stop signal
-            self.publisher_stop_signal.publish(String(data='stop'))
-
-            # Start a timer to reset cooldown
-            self.create_timer(self.cooldown_duration, self.reset_cooldown)
-
-    def reset_cooldown(self):
-        self.cooldown_active = False
-        self.stop_sign_detected = False
-        self.get_logger().info('Cooldown expired. Ready for next stop sign detection.')
-
-
-           
+        # Publish zero velocity to stop the car
+        stop_msg = Twist()
+        stop_msg.linear.x = 0.0
+        stop_msg.angular.z = 0.0
+        
+        if hasattr(self, 'publisherstop_') and self.publisherstop_ is not None:
+            self.publisherstop_.publish(stop_msg)
+            self.get_logger().info('Stop command published.')
+        else:
+            self.get_logger().error('Twist publisher not initialized.')
 
 def main(args=None):
     rclpy.init(args=args)

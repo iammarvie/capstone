@@ -35,7 +35,7 @@ class ImageDisplayNode(Node):
         self.video_file2 = 'stop_sign.avi'
         self.frame_width2 = 320
         self.frame_height2 = 320
-        self.frame_rate2 = 5.0
+        self.frame_rate2 = 1.0
 
     def listener_callback1(self, msg):
         # Convert ROS Image message to OpenCV image

@@ -24,7 +24,7 @@ class DrivingNode(Node):
         self.get_logger().info('Waiting 10 seconds to begin moving.')
 
         # Timer to wait 20 seconds before starting the car
-        self.start_timer = self.create_timer(10.0, self.start_motor)
+        self.start_timer = self.create_timer(20.0, self.start_motor)
         # Subscribe to Twist commands
         self.twist_subscription = self.create_subscription(Twist, 'cmd_vel', self.stop_callback, 1)
         self.twist_subscription_steer = self.create_subscription(Twist, 'cmd_steer', self.steer_callback, 1)
