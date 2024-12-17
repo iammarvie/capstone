@@ -19,8 +19,18 @@ mask_brown = cv2.inRange(hsv_image, lower_brown, upper_brown)
 highlighted_image = cv2.bitwise_and(image, image, mask=mask_brown)
 # Convert to grayscale and apply histogram equalization
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+before_cdf = plt.hist(gray_image.flatten(), 256, [0, 256], color='r')
 equalized_image = cv2.equalizeHist(gray_image)
+after_cdf = plt.hist(equalized_image.flatten(), 256, [0, 256], color='b')
+# Include Legends and axis
+plt.legend(['Before CDF', 'After CDF'])
+plt.xlabel('Pixel Value')
+plt.ylabel('Frequency')
+plt.title('Before and After Histogram Equalization')
+plt.grid()
 cannied_image = cv2.Canny(equalized_image, 74, 215)
+# write the plots into an image
+plt.savefig('before_after_cdf.jpg')
 cv2.imwrite('Gray.jpg', gray_image)
 cv2.imwrite('canny.jpg', cannied_image)
 cv2.imwrite('equalized.jpg', equalized_image)
@@ -194,7 +204,8 @@ if lines is not None:
 '''
 # Draw the region of interest
 cv2.polylines(image, [np.array(region_of_interest_coor)], True, (0, 255, 255), 2)
-
+# Put the angle prediction on the image
+cv2.putText(image, f'Angle: {angle:.2f} degrees', (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 cv2.imwrite('lane_detect.jpg', image)
 # cv2.imwrite('cropped.jpg', cropped_image)
 
